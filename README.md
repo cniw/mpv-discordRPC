@@ -15,20 +15,24 @@ ldd $(which mpv) | grep luajit
 libluajit-5.1.so.2 => /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2 (0x00007f32e9a83000)
 ```
 
-# Install
+## Install
 1. For Linux, installing just run `install-linux.sh` on terminal.
 2. For other OS, just extact and places to directory that you think that can work and install [Discord RPC](https://github.com/discordapp/discord-rpc/releases).
 
-# Testing
+## Testing
 1. Open your [Discord](https://discordapp.com/download)
 2. Open your [mpv](https://mpv.io/installation/) than
 3. Back to Discord and than check your profile. 
 
-# Preview
+## Preview
 1. Idle
+
 ![Idle](https://github.com/cniw/mpv-discordRPC/raw/master/images/idle.png)
+
 2. Playing
+
 ![Playing](https://github.com/cniw/mpv-discordRPC/raw/master/images/playing.png)
+
 
 Good Luck and have a nice day.
 
