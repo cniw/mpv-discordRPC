@@ -1,6 +1,6 @@
 #!/usr/bin/lua
 
---	a mpv Player Music plugin
+--	a mpv Player Music script
 --	filename: mpv-discordRPC.lua
 
 
@@ -64,17 +64,16 @@ function discordrpc()
 		state = state .. mp.get_property("options/term-status-msg")
 		smallImageText = ("%s - Playlist: [%s/%s]"):format(smallImageText, mp.get_property("playlist-pos-1"), mp.get_property("playlist-count"))
 	end
-	--	set [time]
+	--	set [timer]
 	timeNow = os.time(os.date("*t"))
 	timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
 	timeUp = timeNow + timeRemaining
-	duration = mp.get_property("duration")
 	--	set [RPC]
 	discordRPC.initialize(appId, true)
 	presence = {
 		state = state,
 		details = details,
-	--	startTimestamp = math.floor(inetDelay + startTimestamp),
+	--	startTimestamp = math.floor(startTime),
 		endTimestamp = math.floor(timeUp),
 		largeImageKey = "mpv",
 		largeImageText = "mpv Media Player",
