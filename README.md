@@ -6,7 +6,8 @@ mode when idle, while when playing, paused, and buffering use 'left' time mode.
 
 ## Install
 1. For Linux, installing just run `install-linux.sh` on terminal.
-2. For Windows, 
+2. For Windows, installing just run `install-win.bat` by double-clicking it. 
+	If you prefer installing manually, follow the step:  
     - Open file `discord-rpc-win.zip` and extract file `discord-rpc\win32-dynamic\bin\discord-rpc.dll` 
     if your system is 32-bit or `discord-rpc\win64-dynamic\bin\discord-rpc.dll` 
     if your system is 64-bit to same folder that contain `mpv.exe`
