@@ -1,15 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NAME="mpv-discordRPC"
 DIRNAME=$(dirname "$0")
-SCRIPTDIR=${HOME}/.config/mpv/scripts
-LIBDIR=/usr/local/lib
+SCRIPTS_DIR=${HOME}/.config/mpv/SCRIPTS_
+LUA_SETTINGS_DIR=${HOME}/.config/mpv/lua-settings
+LIBRARY_DIR=/usr/local/lib
 
-if  [ ! -d "${SCRIPTDIR}" ] ; then
-    mkdir -p "${SCRIPTDIR}"
+if  [ ! -d "${SCRIPTS_DIR}" ] ; then
+    mkdir -p "${SCRIPTS_DIR}"
 fi
-if  [ ! -d "${LIBDIR}" ] ; then
-    sudo mkdir -p "${LIBDIR}"
+if  [ ! -d "${LUA_SETTINGS_DIR}" ] ; then
+    mkdir -p "${LUA_SETTINGS_DIR}"
+fi
+if  [ ! -d "${LIBRARY_DIR}" ] ; then
+    sudo mkdir -p "${LIBRARY_DIR}"
 fi
 cd "${DIRNAME}"
 
@@ -22,16 +26,31 @@ fi
 echo "[${NAME}] │   ├── extracting 'discord-rpc-linux.zip'"
 unzip -q discord-rpc-linux.zip
 echo "[${NAME}] │   └── installing 'libdiscord-rpc.so'"
-cp ./discord-rpc/linux-dynamic/lib/libdiscord-rpc.so "${LIBDIR}"
+cp ./discord-rpc/linux-dynamic/lib/libdiscord-rpc.so "${LIBRARY_DIR}"
 rm -rf ./discord-rpc
 
 echo "[${NAME}] ├── lua-discordRPC"
-if [ ! -f ./discordRPC.lua ]; then
+if [ ! -f ./mpv-discordRPC_lua-discordRPC.lua ]; then
 echo "[${NAME}] │   ├── downloading 'discordRPC.lua'"
-    wget -q -c "https://github.com/pfirsich/lua-discordRPC/raw/master/discordRPC.lua"
+    wget -q -c -O "mpv-discordRPC_lua-discordRPC.lua" "https://github.com/pfirsich/lua-discordRPC/raw/master/discordRPC.lua"
 fi
-echo "[${NAME}] │   └── installing 'discordRPC.lua'"
-cp ./discordRPC.lua "${SCRIPTDIR}"
+echo "[${NAME}] │   └── installing 'mpv-discordRPC_lua-discordRPC.lua'"
+cp ./mpv-discordRPC_lua-discordRPC.lua "${SCRIPTS_DIR}"
+
+echo "[${NAME}] ├── pypresence"
+echo "[${NAME}] │   ├── checking 'pypresence' python package"
+if [[ $(pip3 list | grep pypresence) ]]; then
+echo "[${NAME}] │   │   └── 'pypresence' has been installed"
+else
+echo "[${NAME}] │   │   └── installing 'pypresence'"
+    pip3 install pypresence
+fi
+if [ ! -f ./mpv-discordRPC_pypresence.py ]; then
+echo "[${NAME}] │   ├── downloading 'mpv-discordRPC_pypresence.py'"
+    wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC_pypresence.py"
+fi
+echo "[${NAME}] │   └── installing 'mpv-discordRPC_pypresence.py'"
+cp ./mpv-discordRPC_pypresence.py "${SCRIPTS_DIR}"
 
 echo "[${NAME}] └── status-line"
 if [ ! -f ./status-line.lua ]; then
@@ -39,18 +58,24 @@ echo "[${NAME}]     ├── downloading 'status-line.lua'"
     wget -q -c "https://github.com/mpv-player/mpv/raw/master/TOOLS/lua/status-line.lua"
 fi
 echo "[${NAME}]     └── installing 'status-line.lua'"
-cp ./status-line.lua "${SCRIPTDIR}"
+cp ./status-line.lua "${SCRIPTS_DIR}"
 
 echo "[${NAME}] installing main script"
+if [ ! -f ./mpv_discordRPC.conf ]; then
+echo "[${NAME}] ├── downloading 'mpv_discordRPC.conf'"
+    wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv_discordRPC.conf"
+fi
 if [ ! -f ./mpv-discordRPC.lua ]; then
 echo "[${NAME}] ├── downloading 'mpv-discordRPC.lua'"
     wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC.lua"
 fi
+echo "[${NAME}] ├── installing 'mpv_discordRPC.conf'"
+cp ./mpv_discordRPC.conf "${LUA_SETTINGS_DIR}"
 echo "[${NAME}] └── installing 'mpv-discordRPC.lua'"
-cp ./mpv-discordRPC.lua "${SCRIPTDIR}"
+cp ./mpv-discordRPC.lua "${SCRIPTS_DIR}"
 
 echo "[${NAME}] updating library path"
-sudo sh -c 'echo '"${LIBDIR}"' > /etc/ld.so.conf.d/'"${NAME}"'.conf'
+sudo sh -c 'echo '"${LIBRARY_DIR}"' > /etc/ld.so.conf.d/'"${NAME}"'.conf'
 sudo ldconfig
 
 echo -e "\n[discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.\n"

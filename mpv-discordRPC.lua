@@ -4,20 +4,20 @@
 --	filename: mpv-discordRPC.lua
 
 
-local discordRPC = require("discordRPC")
-local appId = "448016723057049601"
+local options = require 'mp.options'
 
-function discordRPC.ready()
-	print("Discord: ready")
-end
-
-function discordRPC.disconnected(errorCode, message)
-	print(string.format("Discord: disconnected (%d: %s)", errorCode, message))
-end
-
-function discordRPC.errored(errorCode, message)
-	print(string.format("Discord: error (%d: %s)", errorCode, message))
-end
+-- set [options]
+local o = {
+	rpc_wrapper = "lua-discordRPC",
+	--	Available option, to set rpc wrapper:
+	--	lua-discordRPC
+	--	pypresence
+	periodic_timer=1,
+	--	Recommendation value, to set periodic timer:
+	--	>= 3 second to add enough time for pypresence (python3::asyncio) process,
+	--	<= 15 second because discord-rpc update limited in 15 second.
+}
+options.read_options(o)
 
 function discordrpc()
 	--	set [media data]
@@ -69,7 +69,6 @@ function discordrpc()
 	timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
 	timeUp = timeNow + timeRemaining
 	--	set [RPC]
-	discordRPC.initialize(appId, true)
 	presence = {
 		state = state,
 		details = details,
@@ -92,12 +91,43 @@ function discordrpc()
 			smallImageText = presence.smallImageText
 		}
 	end
-	discordRPC.updatePresence(presence)
+	--	run [RPC]
+	if tostring(o.rpc_wrapper) == "lua-discordRPC" then
+		-- run [RPC with lua-discordRPC]
+		local appId = "448016723057049601"
+		local RPC = require("mpv-discordRPC_" .. o.rpc_wrapper)
+		RPC.initialize(appId, true)
+		RPC.updatePresence(presence)
+	elseif tostring(o.rpc_wrapper) == "pypresence" then
+		-- set [python path]
+		local pythonPath
+		local lib
+		pythonPath = debug.getinfo(1, "S").short_src:match("(.*/)")
+		lib = package.cpath:match("%p[\\|/]?%p(%a+)")
+		if lib == "dll" then
+			pythonPath = pythonPath:gsub("/","\\\\")
+		end
+		pythonPath = pythonPath .. "mpv-discordRPC_" .. o.rpc_wrapper .. ".py"
+		-- run [RPC with pypresence]
+		local command
+		mp.register_event('shutdown', function()
+			command = ('python3 "%s" "%s"'):format(pythonPath, "shutdown")
+			os.execute(command)
+			os.exit()
+		end)
+		if idle then
+			command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, "idle", presence.state, presence.details, presence.startTimestamp, presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText)
+			os.execute(command)
+		else
+			command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, "not-idle", presence.state, presence.details, presence.endTimestamp, presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText)
+			os.execute(command)
+		end
+	end
 end
 
 --	set [start time]
 startTime = os.time(os.date("*t"))
 
 --	call [discordrpc]
-mp.add_periodic_timer(1, discordrpc)
+mp.add_periodic_timer(o.periodic_timer, discordrpc)
 

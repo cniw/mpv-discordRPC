@@ -29,24 +29,31 @@ if %os%==32bit copy ".\discord-rpc\win32-dynamic\bin\discord-rpc.dll" "%mpv_dir%
 if %os%==64bit copy ".\discord-rpc\win64-dynamic\bin\discord-rpc.dll" "%mpv_dir%" > nul
 @rd /s /q ".\discord-rpc"
 
-:set_scripts_dir
-echo [1] install script on %mpv_dir%
-echo [2] install script on %appdata%\mpv
-set /p scripts_dir_select="select [1/2]: "
+:set_additional_dir
+echo [1] install scripts on %mpv_dir%
+echo     install lua-settings on %mpv_dir%
+echo [2] install scripts on %appdata%\mpv
+echo     install lua-settings on %appdata%\mpv
+set /p additional_dir_select="select [1/2]: "
 echo:
 
-if %scripts_dir_select%==1 (
+if %additional_dir_select%==1 (
 	set scripts_dir="%mpv_dir%\scripts"
-	goto install_scripts
+	set lua-settings_dir="%mpv_dir%\lua-settings"
+	goto install_additional
 )
-if %scripts_dir_select%==2 (
+if %additional_dir_select%==2 (
 	set scripts_dir="%appdata%\mpv\scripts"
-	goto install_scripts
-) else goto set_scripts_dir
+	set lua-settings_dir="%appdata%\mpv\lua-settings"
+	goto install_additional
+) else goto set_additional_dir
 
-:install_scripts
+:install_additional
 if not exist "%scripts_dir%" mkdir "%scripts_dir%"
 copy .\*.lua "%scripts_dir%" > nul
+copy .\*.py "%scripts_dir%" > nul
+if not exist "%lua-settings_dir%" mkdir "%lua-settings_dir%"
+copy .\*.conf "%lua-settings_dir%" > nul
 
 echo:
 echo [discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.
