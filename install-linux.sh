@@ -2,7 +2,7 @@
 
 NAME="mpv-discordRPC"
 DIRNAME=$(dirname "$0")
-SCRIPTS_DIR=${HOME}/.config/mpv/SCRIPTS_
+SCRIPTS_DIR=${HOME}/.config/mpv/scripts
 LUA_SETTINGS_DIR=${HOME}/.config/mpv/lua-settings
 LIBRARY_DIR=/usr/local/lib
 
@@ -26,7 +26,7 @@ fi
 echo "[${NAME}] │   ├── extracting 'discord-rpc-linux.zip'"
 unzip -q discord-rpc-linux.zip
 echo "[${NAME}] │   └── installing 'libdiscord-rpc.so'"
-cp ./discord-rpc/linux-dynamic/lib/libdiscord-rpc.so "${LIBRARY_DIR}"
+sudo cp ./discord-rpc/linux-dynamic/lib/libdiscord-rpc.so "${LIBRARY_DIR}"
 rm -rf ./discord-rpc
 
 echo "[${NAME}] ├── lua-discordRPC"
