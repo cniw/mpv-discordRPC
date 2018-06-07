@@ -1,51 +1,83 @@
 # [Discord RPC (Rich Presence) intergation for mpv Media Player](https://github.com/cniw/mpv-discordRPC)
 
-This is edited form [mpv-discordRPC][1]. I add metadata tag (Title, Artist and Album) 
-support for 'details' and I use [status-line][2] for 'state'. I use 'elapsed' time 
-mode when idle, while when playing, paused, and buffering use 'left' time mode.
+This is edited form [mpv-discordRPC][mpv-discordRPC by noaione]. I add metadata 
+tags (Title, Artist and Album) support for 'details' and I use status-line for 
+'state'. I use 'elapsed' time mode when idle, while when playing, paused, and 
+buffering use 'left' time mode.
 
-## Install
-1. For Linux, installing just run `install-linux.sh` on terminal.
-2. For Windows, installing just run `install-win.bat` by double-clicking it. 
-	If you prefer installing manually, follow the step:  
-    - Open file `discord-rpc-win.zip` and extract file `discord-rpc\win32-dynamic\bin\discord-rpc.dll` 
-    if your system is 32-bit or `discord-rpc\win64-dynamic\bin\discord-rpc.dll` 
-    if your system is 64-bit to same folder that contain `mpv.exe`
-    - Make new folder named `scripts` on same folder that contain `mpv.exe`
-    - Copy file `mpv-discordRPC.lua`, `discordRPC.lua`, and `status-line.lua` to 
-    `scripts` folder.
-3. other OS, just extact and places to directory that you think that can work 
-and install [Discord RPC][3].
 ---
-## Important [luaJIT][4] library on [mpv][7]
+## Used software:
+1. provided by user: [mpv][mpv], [Discord][discord]
+2. Included: [Discord RPC][discord-rpc], [status-line][status-line], 
+[lua-discordRPC][lua-discordRPC]
+3. Optional: [Python][python], [pypresence][pypresence]
+
+---
+## Installing
+1. For Linux, installing just run `install-linux.sh` on terminal.
+2. For Windows, installing just run `install-win.bat` by double-clicking it.
+3. For Mac, installing just run `install-osx.sh` on terminal.
+
+---
+## Settings
+Just edit `mpv_discordRPC.conf` file in `lua-settings` folder. Now Available 2 
+rpc_wrapper option, choose one. Example:
+1. Configuration A
+	```
+	rpc_wrapper=lua-discordRPC
+	periodic_timer=1
+	```
+2. Configuration B
+	```
+	rpc_wrapper=pypresence
+	periodic_timer=3
+	```
+
+### To use _`rpc_wrapper=lua-discordRPC`_, Important luaJIT on mpv
+Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by 
+[lua-discordRPC][lua-discordRPC].
 1. For Linux
-    - Make sure you install [LuaJIT][4] before, because it has [FFI Library][5] 
-    and it needed by [lua-discordRPC][6].
-    - Make sure your [mpv][7] binary linked to luajit~~ not lua~~ library.
-    ```bash
-    ldd $(which mpv) | grep luajit
-    libluajit-5.1.so.2 => /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2 (0x00007f32e9a83000)
-    ```
-    if it's dynamic build while it's static build you can check with
-    ```bash
-    mpv -v -V | sed -rn 's/.*(luajit).*/\1/p'
-    luajit
-    ```
+    - Make sure your mpv binary linked to luajit~~ not lua~~ library.
+		```bash
+		ldd $(which mpv) | grep luajit
+		libluajit-5.1.so.2 => /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2 (0x00007f32e9a83000)
+		```
+    - If it's dynamic build while it's static build you can check with
+		```bash
+		mpv -v -V | sed -rn 's/.*(luajit).*/\1/p'
+		luajit
+		```
 2. For Windows ***(Don't worry)***
-   - You can skip this because available mpv Windows build by [lachs0r][8] 
-   and [shinchiro][9] already use [luajit][5] and it configure with `--enable-static-build`. 
-   maybe you want to check again, run command below and find `luajit` word on the 
-   line which beginning with `[cplayer] List of enabled features:`
-   ```cmd
-   mpv.exe -v -V
-   ```
+   - You can skip this because available mpv Windows build by [lachs0r][lachs0r] 
+   and [shinchiro][shinchiro] already use luaJIT and it static build which 
+   configured with `--enable-static-build`.
+3. For Mac ***(So sad)***
+   - Until now, luaJIT still have problem on Mac OS X. Also build mpv with 
+   luaJIT on Mac OS X (read [mpv issue #1110][mpv issue #1110]), it maybe can 
+   build successfully but still can't load luaJIT properly when run mpv] (read 
+   [mpv issue #5205][mpv issue #5205]). You can check with `otool` command.
+
+### To use _`rpc_wrapper=pypresence`_, Important to install pypresence
+**Support Mac, Windows, and Linux** because can use with [Lua][lua] (lua@5.1, 
+lua@5.2) or [LuaJIT][luajit] (luajit).
+1. Install [Python 3][python] (python3.4 or python3.6) because python [asyncio]
+[asyncio] library needed by pypresence.
+2. Install [pypresence][pypresence] `pip3 install pypresence` or `pip3 install 
+https://github.com/qwertyquerty/pypresence/archive/master.zip` you can use `pip` 
+instead of `pip3` if python2.7 not installed.
+
+You may want to check again, run command `mpv -v -V` and find `luajit` or `lua` 
+word on the line which beginning with `[cplayer] List of enabled features:` for 
+Mac, Windows or Linux.
+
 ---
 ## Testing
-1. Open your [Discord][10],
-2. Open your [mpv][7] than
-3. Back to Discord and than check your profile. 
+1. Open your Discord then,
+2. Open your mpv then,
+3. Back to Discord and then check your profile. 
+
 ---
-## Preview
+## Previews
 1. Idle
 
 ![Idle](https://github.com/cniw/mpv-discordRPC/raw/master/images/idle.png)
@@ -57,13 +89,23 @@ and install [Discord RPC][3].
 
 Good Luck and have a nice day.
 
-[1]: https://github.com/noaione/mpv-discordRPC
-[2]: https://github.com/mpv-player/mpv/raw/master/TOOLS/lua/status-line.lua
-[3]: https://github.com/discordapp/discord-rpc/releases
-[4]: http://luajit.org/
-[5]: http://luajit.org/ext_ffi.html
-[6]: https://github.com/pfirsich/lua-discordRPC
-[7]: https://mpv.io/installation/
-[8]: https://mpv.srsfckn.biz/
-[9]: https://sourceforge.net/projects/mpv-player-windows/files
-[10]: https://discordapp.com/download 
+Feedback: Please make [new issue](https://github.com/cniw/mpv-discordRPC/issues/new) 
+if you have question or problem.
+
+[mpv]: https://mpv.io/installation/
+[discord]: https://discordapp.com/download
+[discord-rpc]: https://github.com/discordapp/discord-rpc
+[lua-discordRPC]: https://github.com/pfirsich/lua-discordRPC
+[pypresence]: https://github.com/qwertyquerty/pypresence
+[status-line]: https://github.com/mpv-player/mpv/raw/master/TOOLS/lua/status-line.lua
+[mpv-discordRPC by noaione]: https://github.com/noaione/mpv-discordRPC
+[luajit]: http://luajit.org/
+[ext_ffi]: http://luajit.org/ext_ffi.html
+[lua]: https://www.lua.org/
+[mpv issue #1110]: https://github.com/mpv-player/mpv/issues/1110
+[mpv issue #5205]: https://github.com/mpv-player/mpv/issues/5205
+[lachs0r]: https://mpv.srsfckn.biz/
+[shinchiro]: https://sourceforge.net/projects/mpv-player-windows/files
+[python]: https://www.python.org/downloads/
+[asyncio]: https://docs.python.org/3/library/asyncio.html
+
