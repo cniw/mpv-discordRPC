@@ -12,10 +12,11 @@ local o = {
 	--	Available option, to set rpc wrapper:
 	--	lua-discordRPC
 	--	pypresence
-	periodic_timer=1,
+	periodic_timer = 1,
 	--	Recommendation value, to set periodic timer:
-	--	>= 3 second to add enough time for pypresence (python3::asyncio) process,
-	--	<= 15 second because discord-rpc update limited in 15 second.
+	--	>= 1 second, if use lua-discordRPC,
+	--	>= 3 second, if use pypresence (for the python3::asyncio process),
+	--	<= 15 second, because discord-rpc updates every 15 seconds.
 }
 options.read_options(o)
 
@@ -109,19 +110,15 @@ function discordrpc()
 		end
 		pythonPath = pythonPath .. "mpv-discordRPC_" .. o.rpc_wrapper .. ".py"
 		-- run [RPC with pypresence]
-		local command
+		local todo = idle and "idle" or "not-idle"
+		local command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
-			command = ('python3 "%s" "%s"'):format(pythonPath, "shutdown")
-			os.execute(command)
+			todo = "shutdown"
+			command = ('python3 "%s" "%s"'):format(pythonPath, todo)
+			io.popen(command)
 			os.exit()
 		end)
-		if idle then
-			command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, "idle", presence.state, presence.details, presence.startTimestamp, presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText)
-			os.execute(command)
-		else
-			command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, "not-idle", presence.state, presence.details, presence.endTimestamp, presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText)
-			os.execute(command)
-		end
+		io.popen(command)
 	end
 end
 
