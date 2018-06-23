@@ -1,4 +1,4 @@
-# [Discord RPC (Rich Presence) intergation for mpv Media Player](https://github.com/cniw/mpv-discordRPC)
+# [mpv - discord RPC : Discord Rich Presence intergation for mpv Media Player](https://github.com/cniw/mpv-discordRPC)
 
 This is edited form [mpv-discordRPC][mpv-discordRPC by noaione]. I add metadata 
 tags (Title, Artist and Album) support for 'details' and I use status-line for 
@@ -33,7 +33,7 @@ rpc_wrapper option, choose one. Example:
 	periodic_timer=3
 	```
 
-### To use _`rpc_wrapper=lua-discordRPC`_, Important luaJIT on mpv
+### To use _`rpc_wrapper=lua-discordRPC`_, Important LuaJIT on mpv
 Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by 
 [lua-discordRPC][lua-discordRPC].
 1. For Linux
@@ -49,19 +49,19 @@ Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by
 		```
 2. For Windows ***(Don't worry)***
    - You can skip this because available mpv Windows build by [lachs0r][lachs0r] 
-   and [shinchiro][shinchiro] already use luaJIT and it static build which 
+   and [shinchiro][shinchiro] already use LuaJIT and it static build which 
    configured with `--enable-static-build`.
 3. For Mac ***(So sad)***
-   - Until now, luaJIT still have problem on Mac OS X. Also build mpv with 
-   luaJIT on Mac OS X (read [mpv issue #1110][mpv issue #1110]), it maybe can 
-   build successfully but still can't load luaJIT properly when run mpv] (read 
+   - Until now, LuaJIT still have problem on Mac OS X. Also build mpv with 
+   LuaJIT on Mac OS X (read [mpv issue #1110][mpv issue #1110]), it maybe can 
+   build successfully but still can't load LuaJIT properly when run mpv (read 
    [mpv issue #5205][mpv issue #5205]). You can check with `otool` command.
 
 ### To use _`rpc_wrapper=pypresence`_, Important to install pypresence
 **Support Mac, Windows, and Linux** because can use with [Lua][lua] (lua@5.1, 
 lua@5.2) or [LuaJIT][luajit] (luajit).
-1. Install [Python 3][python] (python3.4 or python3.6) because python [asyncio]
-[asyncio] library needed by pypresence.
+1. Install [Python 3][python] (python3.4 or python3.6) because this version has 
+[asyncio][asyncio] library which needed by pypresence.
 2. Install [pypresence][pypresence] `pip3 install pypresence` or `pip3 install 
 https://github.com/qwertyquerty/pypresence/archive/master.zip` you can use `pip` 
 instead of `pip3` if python2.7 not installed.
