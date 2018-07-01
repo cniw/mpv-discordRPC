@@ -17,6 +17,10 @@ local o = {
 	--	>= 1 second, if use lua-discordRPC,
 	--	>= 3 second, if use pypresence (for the python3::asyncio process),
 	--	<= 15 second, because discord-rpc updates every 15 seconds.
+	playlist_info = "yes",
+	--	Valid value to set playlist info: (yes|no)
+	loop_info = "yes",
+	--	Valid value to set loop info: (yes|no)
 }
 options.read_options(o)
 
@@ -62,8 +66,31 @@ function discordrpc()
 		smallImageText = "Playing"
 	end
 	if not idle then
+		-- set [playlist_info]
+		local playlist = ""
+		if o.playlist_info == "yes" then
+			playlist = (" - Playlist: [%s/%s]"):format(mp.get_property("playlist-pos-1"), mp.get_property("playlist-count"))
+		end
+		-- set [loop_info]
+		local loop = ""
+		if o.loop_info == "yes" then
+			local loopFile = mp.get_property_bool("loop-file") == false and "" or "file"
+			local loopPlaylist = mp.get_property_bool("loop-playlist") == false and "" or "playlist"
+			if loopFile ~= "" then
+				if loopPlaylist ~= "" then
+					loop = ("%s, %s"):format(loopFile, loopPlaylist)
+				else
+					loop = loopFile
+				end
+			elseif loopPlaylist ~= "" then
+				loop = loopPlaylist
+			else
+				loop = "disabled"
+			end
+			loop = (" - Loop: %s"):format(loop)
+		end
 		state = state .. mp.get_property("options/term-status-msg")
-		smallImageText = ("%s - Playlist: [%s/%s]"):format(smallImageText, mp.get_property("playlist-pos-1"), mp.get_property("playlist-count"))
+		smallImageText = ("%s%s%s"):format(smallImageText, playlist, loop)
 	end
 	--	set [timer]
 	timeNow = os.time(os.date("*t"))
