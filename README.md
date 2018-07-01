@@ -6,6 +6,20 @@ tags (Title, Artist and Album) support for 'details' and I use status-line for
 buffering use 'left' time mode.
 
 ---
+## Previews
+1. Idle
+
+![Idle](https://github.com/cniw/mpv-discordRPC/raw/master/images/idle.png)
+
+2. Playing
+
+![Playing](https://github.com/cniw/mpv-discordRPC/raw/master/images/playing.png)
+
+3. Showing info: playlist and loop
+
+![Showing info: playlist and loop](https://github.com/cniw/mpv-discordRPC/raw/master/images/info.png)
+
+---
 ## Used software:
 1. provided by user: [mpv][mpv], [Discord][discord]
 2. Included: [Discord RPC][discord-rpc], [status-line][status-line], 
@@ -31,6 +45,11 @@ rpc_wrapper option, choose one. Example:
 	```
 	rpc_wrapper=pypresence
 	periodic_timer=3
+	```
+Setting to show playlist info and loop info. Example:
+	```
+	playlist_info=yes
+	loop_info=yes
 	```
 
 ### To use _`rpc_wrapper=lua-discordRPC`_, Important LuaJIT on mpv
@@ -75,16 +94,6 @@ Mac, Windows or Linux.
 1. Open your Discord then,
 2. Open your mpv then,
 3. Back to Discord and then check your profile. 
-
----
-## Previews
-1. Idle
-
-![Idle](https://github.com/cniw/mpv-discordRPC/raw/master/images/idle.png)
-
-2. Playing
-
-![Playing](https://github.com/cniw/mpv-discordRPC/raw/master/images/playing.png)
 
 
 Good Luck and have a nice day.
