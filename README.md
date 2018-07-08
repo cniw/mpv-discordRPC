@@ -19,6 +19,10 @@ buffering use 'left' time mode.
 
 ![Showing info: playlist and loop](https://github.com/cniw/mpv-discordRPC/raw/master/images/info.png)
 
+4. Showing cover art
+
+![Showing cover art](https://github.com/cniw/mpv-discordRPC/raw/master/images/coverart.png)
+
 ---
 ## Used software:
 1. provided by user: [mpv][mpv], [Discord][discord]
