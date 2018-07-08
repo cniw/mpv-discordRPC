@@ -65,12 +65,18 @@ if [ ! -f ./mpv_discordRPC.conf ]; then
 echo "[${NAME}] ├── downloading 'mpv_discordRPC.conf'"
     wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv_discordRPC.conf"
 fi
+if [ ! -f ./mpv-discordRPC_catalogs.lua ]; then
+echo "[${NAME}] ├── downloading 'mpv-discordRPC_catalogs.lua'"
+    wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC_catalogs.lua"
+fi
 if [ ! -f ./mpv-discordRPC.lua ]; then
 echo "[${NAME}] ├── downloading 'mpv-discordRPC.lua'"
     wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC.lua"
 fi
 echo "[${NAME}] ├── installing 'mpv_discordRPC.conf'"
 cp ./mpv_discordRPC.conf "${LUA_SETTINGS_DIR}"
+echo "[${NAME}] ├── installing 'mpv-discordRPC_catalogs.lua'"
+cp ./mpv-discordRPC_catalogs.lua "${SCRIPTS_DIR}"
 echo "[${NAME}] └── installing 'mpv-discordRPC.lua'"
 cp ./mpv-discordRPC.lua "${SCRIPTS_DIR}"
 
@@ -78,3 +84,4 @@ echo "[${NAME}] updating library path"
 sudo update_dyld_shared_cache
 
 echo -e "\n[discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.\n"
+
