@@ -21,6 +21,8 @@ local o = {
 	--	Valid value to set playlist info: (yes|no)
 	loop_info = "yes",
 	--	Valid value to set loop info: (yes|no)
+	cover_art = "yes",
+	--	Valid value to set loop info: (yes|no)
 }
 options.read_options(o)
 
@@ -96,14 +98,36 @@ function discordrpc()
 	timeNow = os.time(os.date("*t"))
 	timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
 	timeUp = timeNow + timeRemaining
+	-- set [largeImageKey and largeImageText]
+	local largeImageKey = "mpv"
+	local largeImageText = "mpv Media Player"
+	-- set [cover_art]
+	if o.cover_art == "yes" then
+		local catalogs = require("mpv-discordRPC_catalogs")
+		for i in pairs(catalogs) do
+			local album = catalogs[i].album
+			for j in pairs(album) do
+				if album[j] == metadataAlbum then
+					local artist = catalogs[i].artist
+					for k in pairs(artist) do
+						if artist[k] == metadataArtist then
+							local number = catalogs[i].number
+							largeImageKey = ("covarart_%s"):format(number):gsub("[ /~]", "_"):lower()
+							largeImageText = album[j]
+						end
+					end
+				end
+			end
+		end
+	end
 	--	set [RPC]
 	presence = {
 		state = state,
 		details = details,
 	--	startTimestamp = math.floor(startTime),
 		endTimestamp = math.floor(timeUp),
-		largeImageKey = "mpv",
-		largeImageText = "mpv Media Player",
+		largeImageKey = largeImageKey,
+		largeImageText = largeImageText,
 		smallImageKey = smallImageKey,
 		smallImageText = smallImageText,
 	}
