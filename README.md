@@ -31,9 +31,9 @@ buffering use 'left' time mode.
 3. Optional: [Python][python], [pypresence][pypresence]
 
 ---
-## Download 
-[Latest Release](https://github.com/cniw/mpv-discordRPC/releases/latest) ![](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/latest/total.svg)
-[All Releases](https://github.com/cniw/mpv-discordRPC/releases) ![](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/total.svg)
+## Download
+- Latest Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/latest/total.svg)](https://github.com/cniw/mpv-discordRPC/releases/latest)
+- All Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/total.svg)](https://github.com/cniw/mpv-discordRPC/releases)
 
 ---
 ## Installing
