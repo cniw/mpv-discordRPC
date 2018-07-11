@@ -46,20 +46,26 @@ features: info and cover art. For more description read below.
 ## Settings
 Just edit `mpv_discordRPC.conf` file in `lua-settings` folder. Now Available 2 
 rpc_wrapper option, choose one. Example:
-1. Configuration A
+* Configuration (A) rpc_wrapper and periodic_timer
 	```
 	rpc_wrapper=lua-discordRPC
 	periodic_timer=1
 	```
-2. Configuration B
+* Configuration (B) rpc_wrapper and periodic_timer
 	```
 	rpc_wrapper=pypresence
 	periodic_timer=3
 	```
 Setting to show playlist info and loop info. Example:
+* Configuration playlist_info and loop_info
 	```
 	playlist_info=yes
 	loop_info=yes
+	```
+Setting to show cover art. Example:
+* Configuration cover_art
+	```
+	cover_art=yes
 	```
 
 ### To use _`rpc_wrapper=lua-discordRPC`_, Important LuaJIT on mpv
