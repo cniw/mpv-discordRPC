@@ -1,10 +1,11 @@
 # [mpv - discord RPC : Discord Rich Presence intergation for mpv Media Player](https://github.com/cniw/mpv-discordRPC)
 
-This is edited from [mpv-discordRPC][mpv-discordRPC by noaione]. I add metadata 
-tags (Title, Artist and Album) support for 'details' and I use status-line for 
-'state'. I use 'elapsed' time mode when idle, while when playing, paused, and 
-buffering use 'left' time mode. I also add custom configuration file and new 
-features: info and cover art. For more description read below.
+This is alternative version, edited from [mpv-discordRPC][mpv-discordRPC by noaione].
+I add metadata tags (Title, Artist and Album) support for 'details' and I use status-line for 'state'.
+I use 'elapsed' time mode when idle, while when playing, paused, and buffering use 'left' time mode.
+I add support and installer script for Linux, Mac and Windows.
+I also add custom configuration file and new features: info and cover art.
+For more description read below.
 
 ---
 ## Previews
