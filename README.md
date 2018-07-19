@@ -35,6 +35,8 @@ For more description read below.
 ---
 ## Download
 - Latest Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/latest/total.svg)](https://github.com/cniw/mpv-discordRPC/releases/latest)
+ ![](https://img.shields.io/github/release/cniw/mpv-discordRPC.svg)
+ ![](https://img.shields.io/github/release-date/cniw/mpv-discordRPC.svg)
 - All Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/total.svg)](https://github.com/cniw/mpv-discordRPC/releases)
 
 ---
