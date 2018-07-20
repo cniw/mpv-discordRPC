@@ -11,19 +11,19 @@ For more description read below.
 ## Previews
 1. Idle
 
-![Idle](https://github.com/cniw/mpv-discordRPC/raw/master/images/idle.png)
+![Idle](images/idle.png)
 
 2. Playing
 
-![Playing](https://github.com/cniw/mpv-discordRPC/raw/master/images/playing.png)
+![Playing](images/playing.png)
 
 3. Showing info: playlist and loop
 
-![Showing info: playlist and loop](https://github.com/cniw/mpv-discordRPC/raw/master/images/info.png)
+![Showing info: playlist and loop](images/info.png)
 
 4. Showing cover art
 
-![Showing cover art](https://github.com/cniw/mpv-discordRPC/raw/master/images/coverart.png)
+![Showing cover art](images/coverart.png)
 
 ---
 ## Used software:
