@@ -1,7 +1,14 @@
 return {
 	{ number = "customCatalog-1", album = { "Abdulrahman Alsudaes Musshaf", "http://www.assabile.com/" }, artist = { "Abdulrahman Alsudaes", "Abdul Rahman Al Sudais" } },
 	{ number = "SVWC-70166~7", album = { "デュラララッピング!! -「デュラララ!!」BEST-", "DRRR Wrapping!! -DuRaRaRa!! BEST-" }, artist = { "THEATRE BROOK", "Matsushita Yuya", "ROOKiEZ is PUNK'D", "ON/OFF", "OKAMOTO’S", "THREE LIGHTS DOWN KINGS", "Toshiyuki Toyonaga", "REVALCY", "FLOW", "PENGUIN RESEARCH" } },
+	-- Lamb of God
+	{ number = "3984-14345-2", album = { "New American Gospel" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
+	{ number = "10008-2", album = { "As the Palaces Burn", "As The Palaces Burn" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
+	{ number = "517933 2", album = { "Ashes of the Wake", "Ashes Of The Wake" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
+	{ number = "82876 87343 2", album = { "Sacrament" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
+	{ number = "RRCY-21335", album = { "Wrath", "Wrath (Limited Edition)" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
 	{ number = "RR 7655-5", album = { "Resolution" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
+	{ number = "NB 3559-0", album = { "VII: Sturm und Drang", "VII: Sturm Und Drang", "Sturm und Drang", "Sturm Und Drang" }, artist = { "Lamb of God", "Lamb Of God", "LAMB OF GOD", "lamb of god" } },
 	-- ONE OK ROCK
 	{ number = "AZCL-10011", album = { "ゼイタクビョウ", "Zeitakubyō", "Zeitakubyo" }, artist = { "ONE OK ROCK" } },
 	{ number = "AZCL-10017", album = { "BEAM OF LIGHT", "Beam of Light" }, artist = { "ONE OK ROCK" } },
@@ -29,5 +36,19 @@ return {
 	{ number = "531345-2", album = { "Living Things" }, artist = { "Linkin Park", "LINKIN PARK", "linkin park" } },
 	{ number = "543028-2", album = { "The Hunting Party" }, artist = { "Linkin Park", "LINKIN PARK", "linkin park" } },
 	{ number = "559687-2", album = { "One More Light" }, artist = { "Linkin Park", "LINKIN PARK", "linkin park" } },
+	-- Dream Theater
+	{ number = "MCAD42259", album = { "When Dream and Day Unite", "When Dream And Day Unite" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7567-92148-2", album = { "Images and Words", "Images And Words", "Images and words" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7567-90126-2", album = { "Awake" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7559-62060-2", album = { "Falling Into Infinity", "Falling into infinity" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7559-62448-2", album = { "Metropolis, Pt. 2: Scenes From a Memory" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7559-62742-2", album = { "Six Degrees of Inner Turbulence", "Six Degrees Of Inner Turbulence" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7559-62891-2", album = { "Train of Thought", "Train Of Thought" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "7567-83793-2", album = { "Octavarium" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "1686-179922", album = { "Systematic Chaos" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "1686-178832", album = { "Black Clouds & Silver Linings" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "RR7765-2", album = { "A Dramatic Turn of Events", "A Dramatic Turn Of Events" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "1686-176042", album = { "Dream Theater" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
+	{ number = "1686-174932", album = { "The Astonishing" }, artist = { "Dream Theater", "DREAM THEATER", "dream theater" } },
 }
 
