@@ -120,6 +120,24 @@ function discordrpc()
 			end
 		end
 	end
+	-- streaming mode
+	local url = mp.get_property("path")
+	local stream = mp.get_property("stream-path")
+	if url ~= nil then
+		-- checking protocol: http, https
+		if string.match(url, "^https?://.*") ~= nil then
+			largeImageKey = "mpv_streaming"
+			largeImageText = url
+		end
+		-- checking site: youtube, crunchyroll
+		if string.match(url, "www.youtube.com/watch%?v=([a-zA-Z0-9-_]+)&?.*$") ~= nil then
+			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
+			largeImageText = "YouTube"
+		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
+			largeImageKey = "crunchyroll_big"	-- alternative "crunchyroll_big"
+			largeImageText = "Crunchyroll"
+		end
+	end
 	--	set [RPC]
 	presence = {
 		state = state,
@@ -131,6 +149,11 @@ function discordrpc()
 		smallImageKey = smallImageKey,
 		smallImageText = smallImageText,
 	}
+	if url ~= nil and stream == nil then
+		presence.state = "(Loading)"
+		presence.startTimestamp = math.floor(startTime)
+		presence.endTimestamp = nil
+	end
 	if idle then
 		presence = {
 			state = presence.state,
