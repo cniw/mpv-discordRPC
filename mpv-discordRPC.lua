@@ -112,7 +112,7 @@ function discordrpc()
 					for k in pairs(artist) do
 						if artist[k] == metadataArtist then
 							local number = catalogs[i].number
-							largeImageKey = ("covarart_%s"):format(number):gsub("[ /~]", "_"):lower()
+							largeImageKey = ("coverart_%s"):format(number):gsub("[ /~]", "_"):lower()
 							largeImageText = album[j]
 						end
 					end
