@@ -1,46 +1,44 @@
-# [mpv - discord RPC : Discord Rich Presence intergation for mpv Media Player](https://github.com/cniw/mpv-discordRPC)
-
-This is alternative version, edited from [mpv-discordRPC][mpv-discordRPC by noaione].
+<center><img align="right" src="images/buffering_streaming.png"></center>
+<h1 align="center"><a href="https://github.com/cniw/mpv-discordRPC">mpv-discordRPC</a></h1>
+<p align="center"><b>Discord Rich Presence intergation for mpv Media Player</b></p>
+<hr><p align="center">
+This is alternative version, edited from <a href="https://github.com/noaione/mpv-discordRPC">mpv-discordRPC</a>.
 I add metadata tags (Title, Artist and Album) support for 'details' and I use status-line for 'state'.
 I use 'elapsed' time mode when idle, while when playing, paused, and buffering use 'left' time mode.
 I add support and installer script for Linux, Mac and Windows.
 I also add custom configuration file and new features: info and cover art.
+</p><p align="right">
 For more description read below.
+</p>
 
 ---
 ## Previews
-1. Idle
-
-![Idle](images/idle.png)
-
-2. Playing
-
-![Playing](images/playing.png)
-
-3. Showing info: playlist and loop
-
-![Showing info: playlist and loop](images/info.png)
-
-4. Showing cover art
-
-![Showing cover art](images/coverart.png)
+| Description | Image |
+| :-: | :-: |
+| Idle | ![Idle](images/idle.png)
+| Playing | ![Playing](images/playing.png)
+| Paused | ![Paused](images/paused.png)
+| Info: playlist and loop | ![Info: playlist and loop](images/info.png)
+| Cover art | ![Cover art](images/coverart.png)
+| YouTube playing | ![YouTube playing](images/playing_youtube.png)
+| Crunchyroll paused  | ![Crunchyroll paused](images/paused_crunchyroll.png)
 
 ---
-## Used software:
+## Used softwares
 1. provided by user: [mpv][mpv], [Discord][discord]
 2. Included: [Discord RPC][discord-rpc], [status-line][status-line], 
 [lua-discordRPC][lua-discordRPC]
 3. Optional: [Python][python], [pypresence][pypresence]
 
 ---
-## Download
+## Downloads
 - Latest Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/latest/total.svg)](https://github.com/cniw/mpv-discordRPC/releases/latest)
  ![](https://img.shields.io/github/release/cniw/mpv-discordRPC.svg)
  ![](https://img.shields.io/github/release-date/cniw/mpv-discordRPC.svg)
 - All Releases [![download](https://img.shields.io/github/downloads/cniw/mpv-discordRPC/total.svg)](https://github.com/cniw/mpv-discordRPC/releases)
 
 ---
-## Installing
+## Instalation
 1. For Linux, installing just run `install-linux.sh` on terminal.
 2. For Windows, installing just run `install-win.bat` by double-clicking it.
 3. For Mac, installing just run `install-osx.sh` on terminal.
@@ -117,8 +115,9 @@ Mac, Windows or Linux.
 
 Good Luck and have a nice day.
 
-Feedback: Please make [new issue](https://github.com/cniw/mpv-discordRPC/issues/new) 
-if you have question or problem.
+Feedback: If you have question, problem or request, please make new issue or 
+contact me wachidadinugroho#7674 via Discord.
+
 
 [mpv]: https://mpv.io/installation/
 [discord]: https://discordapp.com/download
@@ -126,7 +125,6 @@ if you have question or problem.
 [lua-discordRPC]: https://github.com/pfirsich/lua-discordRPC
 [pypresence]: https://github.com/qwertyquerty/pypresence
 [status-line]: https://github.com/mpv-player/mpv/raw/master/TOOLS/lua/status-line.lua
-[mpv-discordRPC by noaione]: https://github.com/noaione/mpv-discordRPC
 [luajit]: http://luajit.org/
 [ext_ffi]: http://luajit.org/ext_ffi.html
 [lua]: https://www.lua.org/
