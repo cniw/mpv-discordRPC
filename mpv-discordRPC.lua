@@ -134,7 +134,7 @@ function discordrpc()
 			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
 			largeImageText = "YouTube"
 		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
-			largeImageKey = "crunchyroll_big"	-- alternative "crunchyroll_big"
+			largeImageKey = "crunchyroll"	-- alternative "crunchyroll_big"
 			largeImageText = "Crunchyroll"
 		end
 	end
