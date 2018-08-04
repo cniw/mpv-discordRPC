@@ -22,7 +22,7 @@ local o = {
 	loop_info = "yes",
 	--	Valid value to set loop info: (yes|no)
 	cover_art = "yes",
-	--	Valid value to set loop info: (yes|no)
+	--	Valid value to set cover art: (yes|no)
 }
 options.read_options(o)
 
