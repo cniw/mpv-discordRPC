@@ -6,7 +6,7 @@
 
 local options = require 'mp.options'
 
--- set [options]
+--	set [options]
 local o = {
 	rpc_wrapper = "lua-discordRPC",
 	--	Available option, to set rpc wrapper:
@@ -44,7 +44,7 @@ function discordrpc()
 	if details == nil then
 		details = "No file"
 	end
-	-- set [state]
+	--	set [state]
 	idle = mp.get_property_bool("idle-active")
 	coreIdle = mp.get_property_bool("core-idle")
 	pausedFC = mp.get_property_bool("paused-for-cache")
@@ -68,12 +68,12 @@ function discordrpc()
 		smallImageText = "Playing"
 	end
 	if not idle then
-		-- set [playlist_info]
+		--	set [playlist_info]
 		local playlist = ""
 		if o.playlist_info == "yes" then
 			playlist = (" - Playlist: [%s/%s]"):format(mp.get_property("playlist-pos-1"), mp.get_property("playlist-count"))
 		end
-		-- set [loop_info]
+		--	set [loop_info]
 		local loop = ""
 		if o.loop_info == "yes" then
 			local loopFile = mp.get_property_bool("loop-file") == false and "" or "file"
@@ -98,10 +98,10 @@ function discordrpc()
 	timeNow = os.time(os.date("*t"))
 	timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
 	timeUp = timeNow + timeRemaining
-	-- set [largeImageKey and largeImageText]
+	--	set [largeImageKey and largeImageText]
 	local largeImageKey = "mpv"
 	local largeImageText = "mpv Media Player"
-	-- set [cover_art]
+	--	set [cover_art]
 	if o.cover_art == "yes" then
 		local catalogs = require("mpv-discordRPC_catalogs")
 		for i in pairs(catalogs) do
@@ -120,21 +120,21 @@ function discordrpc()
 			end
 		end
 	end
-	-- streaming mode
+	--	streaming mode
 	local url = mp.get_property("path")
 	local stream = mp.get_property("stream-path")
 	if url ~= nil then
-		-- checking protocol: http, https
+		--	checking protocol: http, https
 		if string.match(url, "^https?://.*") ~= nil then
 			largeImageKey = "mpv_streaming"
 			largeImageText = url
 		end
-		-- checking site: youtube, crunchyroll
+		--	checking site: youtube, crunchyroll
 		if string.match(url, "www.youtube.com/watch%?v=([a-zA-Z0-9-_]+)&?.*$") ~= nil then
-			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
+			largeImageKey = "youtube"	--	alternative "youtube_big" or "youtube-2"
 			largeImageText = "YouTube"
 		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
-			largeImageKey = "crunchyroll"	-- alternative "crunchyroll_big"
+			largeImageKey = "crunchyroll"	--	alternative "crunchyroll_big"
 			largeImageText = "Crunchyroll"
 		end
 	end
@@ -168,13 +168,13 @@ function discordrpc()
 	end
 	--	run [RPC]
 	if tostring(o.rpc_wrapper) == "lua-discordRPC" then
-		-- run [RPC with lua-discordRPC]
+		--	run [RPC with lua-discordRPC]
 		local appId = "448016723057049601"
 		local RPC = require("mpv-discordRPC_" .. o.rpc_wrapper)
 		RPC.initialize(appId, true)
 		RPC.updatePresence(presence)
 	elseif tostring(o.rpc_wrapper) == "pypresence" then
-		-- set [python path]
+		--	set [python path]
 		local pythonPath
 		local lib
 		pythonPath = debug.getinfo(1, "S").short_src:match("(.*/)")
@@ -183,7 +183,7 @@ function discordrpc()
 			pythonPath = pythonPath:gsub("/","\\\\")
 		end
 		pythonPath = pythonPath .. "mpv-discordRPC_" .. o.rpc_wrapper .. ".py"
-		-- run [RPC with pypresence]
+		--	run [RPC with pypresence]
 		local todo = idle and "idle" or "not-idle"
 		local command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
