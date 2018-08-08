@@ -68,6 +68,12 @@ Setting to show cover art. Example:
 	```
 	cover_art=yes
 	```
+Setting to active/inactive toggle the Discord RPC and the start states. Example:
+* Configuration active and key_toggle
+	```
+	active=yes
+	key_toggle=D
+	```
 
 ### To use _`rpc_wrapper=lua-discordRPC`_, Important LuaJIT on mpv
 Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by 
