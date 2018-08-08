@@ -23,6 +23,14 @@ local o = {
 	--	Valid value to set loop info: (yes|no)
 	cover_art = "yes",
 	--	Valid value to set cover art: (yes|no)
+	active = "yes",
+	--	Set Discord RPC active automatically when mpv started.
+	--	Valid value to set active: (yes|no)
+	key_toggle = "D",
+	--	Key for toggle active/inactive the Discord RPC.
+	--	Valid value to set key toggle: same as valid value for mpv key binding
+	--	You also can set it in input.conf by adding this next line (without double quote)
+	--	"D	script-binding mpv_discordRPC/active-toggle"
 }
 options.read_options(o)
 
@@ -172,7 +180,11 @@ function discordrpc()
 		local appId = "448016723057049601"
 		local RPC = require("mpv-discordRPC_" .. o.rpc_wrapper)
 		RPC.initialize(appId, true)
-		RPC.updatePresence(presence)
+		if o.active == "yes" then
+			RPC.updatePresence(presence)
+		else
+			RPC.shutdown()
+		end
 	elseif tostring(o.rpc_wrapper) == "pypresence" then
 		--	set [python path]
 		local pythonPath
@@ -192,12 +204,23 @@ function discordrpc()
 			io.popen(command)
 			os.exit()
 		end)
-		io.popen(command)
+		if o.active == "yes" then
+			io.popen(command)
+		end
 	end
 end
 
 --	set [start time]
 startTime = os.time(os.date("*t"))
+
+--	toggling active or inactive
+mp.add_key_binding(o.key_toggle, "active-toggle", function()
+		o.active = o.active == "yes" and "no" or "yes"
+		local status = o.active == "yes" and "active" or "inactive"
+		mp.osd_message("mpv_discordRPC: " .. status)
+		print(status)
+	end,
+	{repeatable=false})
 
 --	call [discordrpc]
 mp.add_periodic_timer(o.periodic_timer, discordrpc)
