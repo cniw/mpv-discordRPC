@@ -1,45 +1,48 @@
-#!/usr/bin/lua
-
---	a mpv Player Music script
---	filename: mpv-discordRPC.lua
+-- Discord Rich Presence integration for mpv Media Player
+--
+-- Please consult the readme for information about usage and configuration:
+-- https://github.com/cniw/mpv-discordRPC
 
 
 local options = require 'mp.options'
 
---	set [options]
+-- set [options]
 local o = {
 	rpc_wrapper = "lua-discordRPC",
-	--	Available option, to set rpc wrapper:
-	--	lua-discordRPC
-	--	pypresence
+	-- Available option, to set `rpc_wrapper`:
+	-- * lua-discordRPC
+	-- * pypresence
 	periodic_timer = 1,
-	--	Recommendation value, to set periodic timer:
-	--	>= 1 second, if use lua-discordRPC,
-	--	>= 3 second, if use pypresence (for the python3::asyncio process),
-	--	<= 15 second, because discord-rpc updates every 15 seconds.
+	-- Recommendation value, to set `periodic_timer`:
+	-- value >= 1 second, if use lua-discordRPC,
+	-- value >= 3 second, if use pypresence (for the python3::asyncio process),
+	-- value <= 15 second, because discord-rpc updates every 15 seconds.
 	playlist_info = "yes",
-	--	Valid value to set playlist info: (yes|no)
+	-- Valid value to set `playlist_info`: (yes|no)
 	loop_info = "yes",
-	--	Valid value to set loop info: (yes|no)
+	-- Valid value to set `loop_info`: (yes|no)
 	cover_art = "yes",
-	--	Valid value to set cover art: (yes|no)
+	-- Valid value to set `cover_art`: (yes|no)
 	active = "yes",
-	--	Set Discord RPC active automatically when mpv started.
-	--	Valid value to set active: (yes|no)
+	-- Set Discord RPC active automatically when mpv started.
+	-- Valid value to `set_active`: (yes|no)
 	key_toggle = "D",
-	--	Key for toggle active/inactive the Discord RPC.
-	--	Valid value to set key toggle: same as valid value for mpv key binding
-	--	You also can set it in input.conf by adding this next line (without double quote)
-	--	"D	script-binding mpv_discordRPC/active-toggle"
+	-- Key for toggle active/inactive the Discord RPC.
+	-- Valid value to set `key_toggle`: same as valid value for mpv key binding.
+	-- You also can set it in input.conf by adding this next line (without double quote).
+	-- "D script-binding mpv_discordRPC/active-toggle"
 }
 options.read_options(o)
 
-function discordrpc()
-	--	set [media data]
-	details = mp.get_property("media-title")
-	metadataTitle = mp.get_property_native("metadata/by-key/Title")
-	metadataArtist = mp.get_property_native("metadata/by-key/Artist")
-	metadataAlbum = mp.get_property_native("metadata/by-key/Album")
+-- set `startTime`
+local startTime = os.time(os.date("*t"))
+
+local function main()
+	-- set `details`
+	local details = mp.get_property("media-title")
+	local metadataTitle = mp.get_property_native("metadata/by-key/Title")
+	local metadataArtist = mp.get_property_native("metadata/by-key/Artist")
+	local metadataAlbum = mp.get_property_native("metadata/by-key/Album")
 	if metadataTitle ~= nil then
 		details = metadataTitle
 	end
@@ -52,12 +55,12 @@ function discordrpc()
 	if details == nil then
 		details = "No file"
 	end
-	--	set [state]
-	idle = mp.get_property_bool("idle-active")
-	coreIdle = mp.get_property_bool("core-idle")
-	pausedFC = mp.get_property_bool("paused-for-cache")
-	pause = mp.get_property_bool("pause")
-	play = coreIdle and false or true
+	-- set `state`, `smallImageKey`, and `smallImageText`
+	local idle = mp.get_property_bool("idle-active")
+	local coreIdle = mp.get_property_bool("core-idle")
+	local pausedFC = mp.get_property_bool("paused-for-cache")
+	local pause = mp.get_property_bool("pause")
+	local play = coreIdle and false or true
 	if idle then
 		state = "(Idle)"
 		smallImageKey = "player_stop"
@@ -76,12 +79,12 @@ function discordrpc()
 		smallImageText = "Playing"
 	end
 	if not idle then
-		--	set [playlist_info]
+		-- set `playlist_info`
 		local playlist = ""
 		if o.playlist_info == "yes" then
 			playlist = (" - Playlist: [%s/%s]"):format(mp.get_property("playlist-pos-1"), mp.get_property("playlist-count"))
 		end
-		--	set [loop_info]
+		-- set `loop_info`
 		local loop = ""
 		if o.loop_info == "yes" then
 			local loopFile = mp.get_property_bool("loop-file") == false and "" or "file"
@@ -102,14 +105,14 @@ function discordrpc()
 		state = state .. mp.get_property("options/term-status-msg")
 		smallImageText = ("%s%s%s"):format(smallImageText, playlist, loop)
 	end
-	--	set [timer]
-	timeNow = os.time(os.date("*t"))
-	timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
-	timeUp = timeNow + timeRemaining
-	--	set [largeImageKey and largeImageText]
+	-- set time
+	local timeNow = os.time(os.date("*t"))
+	local timeRemaining = os.time(os.date("*t", mp.get_property("playtime-remaining")))
+	local timeUp = timeNow + timeRemaining
+	-- set `largeImageKey` and `largeImageText`
 	local largeImageKey = "mpv"
 	local largeImageText = "mpv Media Player"
-	--	set [cover_art]
+	-- set `cover_art`
 	if o.cover_art == "yes" then
 		local catalogs = require("mpv-discordRPC_catalogs")
 		for i in pairs(catalogs) do
@@ -128,21 +131,21 @@ function discordrpc()
 			end
 		end
 	end
-	--	streaming mode
+	-- streaming mode
 	local url = mp.get_property("path")
 	local stream = mp.get_property("stream-path")
 	if url ~= nil then
-		--	checking protocol: http, https
+		-- checking protocol: http, https
 		if string.match(url, "^https?://.*") ~= nil then
 			largeImageKey = "mpv_streaming"
 			largeImageText = url
 		end
-		--	checking site: YouTube, Crunchyroll, SoundCloud, LISTEN.moe
+		-- checking site: YouTube, Crunchyroll, SoundCloud, LISTEN.moe
 		if string.match(url, "www.youtube.com/watch%?v=([a-zA-Z0-9-_]+)&?.*$") ~= nil then
-			largeImageKey = "youtube"	--	alternative "youtube_big" or "youtube-2"
+			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
 			largeImageText = "YouTube"
 		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
-			largeImageKey = "crunchyroll"	--	alternative "crunchyroll_big"
+			largeImageKey = "crunchyroll"	-- alternative "crunchyroll_big"
 			largeImageText = "Crunchyroll"
 		elseif string.match(url, "soundcloud.com/.+/.*$") ~= nil then
 			largeImageKey = "soundcloud"	-- alternative "soundcloud_big"
@@ -152,11 +155,11 @@ function discordrpc()
 			largeImageText = string.match(url, "kpop") ~= nil and "LISTEN.moe - KPOP" or "LISTEN.moe - JPOP"
 		end
 	end
-	--	set [RPC]
-	presence = {
+	-- set `presence`
+	local presence = {
 		state = state,
 		details = details,
-	--	startTimestamp = math.floor(startTime),
+		-- startTimestamp = math.floor(startTime),
 		endTimestamp = math.floor(timeUp),
 		largeImageKey = largeImageKey,
 		largeImageText = largeImageText,
@@ -173,16 +176,16 @@ function discordrpc()
 			state = presence.state,
 			details = presence.details,
 			startTimestamp = math.floor(startTime),
-		--	endTimestamp = presence.endTimestamp,
+			-- endTimestamp = presence.endTimestamp,
 			largeImageKey = presence.largeImageKey,
 			largeImageText = presence.largeImageText,
 			smallImageKey = presence.smallImageKey,
 			smallImageText = presence.smallImageText
 		}
 	end
-	--	run [RPC]
+	-- run Rich Presence
 	if tostring(o.rpc_wrapper) == "lua-discordRPC" then
-		--	run [RPC with lua-discordRPC]
+		-- run Rich Presence with lua-discordRPC
 		local appId = "448016723057049601"
 		local RPC = require("mpv-discordRPC_" .. o.rpc_wrapper)
 		RPC.initialize(appId, true)
@@ -192,7 +195,7 @@ function discordrpc()
 			RPC.shutdown()
 		end
 	elseif tostring(o.rpc_wrapper) == "pypresence" then
-		--	set [python path]
+		-- set python path
 		local pythonPath
 		local lib
 		pythonPath = debug.getinfo(1, "S").short_src:match("(.*/)")
@@ -201,7 +204,7 @@ function discordrpc()
 			pythonPath = pythonPath:gsub("/","\\\\")
 		end
 		pythonPath = pythonPath .. "mpv-discordRPC_" .. o.rpc_wrapper .. ".py"
-		--	run [RPC with pypresence]
+		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
 		local command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
@@ -216,10 +219,7 @@ function discordrpc()
 	end
 end
 
---	set [start time]
-startTime = os.time(os.date("*t"))
-
---	toggling active or inactive
+-- toggling active or inactive
 mp.add_key_binding(o.key_toggle, "active-toggle", function()
 		o.active = o.active == "yes" and "no" or "yes"
 		local status = o.active == "yes" and "active" or "inactive"
@@ -228,6 +228,6 @@ mp.add_key_binding(o.key_toggle, "active-toggle", function()
 	end,
 	{repeatable=false})
 
---	call [discordrpc]
-mp.add_periodic_timer(o.periodic_timer, discordrpc)
+-- run `main` function
+mp.add_periodic_timer(o.periodic_timer, main)
 
