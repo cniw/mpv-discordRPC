@@ -137,13 +137,19 @@ function discordrpc()
 			largeImageKey = "mpv_streaming"
 			largeImageText = url
 		end
-		--	checking site: youtube, crunchyroll
+		--	checking site: YouTube, Crunchyroll, SoundCloud, LISTEN.moe
 		if string.match(url, "www.youtube.com/watch%?v=([a-zA-Z0-9-_]+)&?.*$") ~= nil then
 			largeImageKey = "youtube"	--	alternative "youtube_big" or "youtube-2"
 			largeImageText = "YouTube"
 		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
 			largeImageKey = "crunchyroll"	--	alternative "crunchyroll_big"
 			largeImageText = "Crunchyroll"
+		elseif string.match(url, "soundcloud.com/.+/.*$") ~= nil then
+			largeImageKey = "soundcloud"	-- alternative "soundcloud_big"
+			largeImageText = "SoundCloud"
+		elseif string.match(url, "listen.moe/.*stream$") ~= nil or string.match(url, "listen.moe/.*opus$") ~= nil or string.match(url, "listen.moe/.*fallback$") ~= nil or string.match(url, "listen.moe/.*m3u$") ~= nil then
+			largeImageKey = "listen_moe"	-- alternative "listen_moe_big"
+			largeImageText = string.match(url, "kpop") ~= nil and "LISTEN.moe - KPOP" or "LISTEN.moe - JPOP"
 		end
 	end
 	--	set [RPC]
