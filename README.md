@@ -6,7 +6,7 @@ This is alternative version, edited from <a href="https://github.com/noaione/mpv
 I add metadata tags (Title, Artist and Album) support for 'details' and I use status-line for 'state'.
 I use 'elapsed' time mode when idle, while when playing, paused, and buffering use 'left' time mode.
 I add support and installer script for Linux, Mac and Windows.
-I also add custom configuration file and new features: info and cover art.
+I also add custom configuration file and new features: info, cover art, url detections, and active/inactive toggle.
 </p><p align="right">
 For more description read below.
 </p>
