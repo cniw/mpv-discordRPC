@@ -118,10 +118,14 @@ local function main()
 		for i in pairs(catalogs) do
 			local album = catalogs[i].album
 			for j in pairs(album) do
-				if album[j] == metadataAlbum then
+				local lower_album = album[j] ~= nil and album[j]:lower() or ""
+				local lower_metadataAlbum = metadataAlbum ~= nil and metadataAlbum:lower() or ""
+				if lower_album == lower_metadataAlbum then
 					local artist = catalogs[i].artist
 					for k in pairs(artist) do
-						if artist[k] == metadataArtist then
+						local lower_artist = artist[k] ~= nil and artist[k]:lower() or ""
+						local lower_metadataArtist = metadataArtist ~= nil and metadataArtist:lower() or ""
+						if lower_artist == lower_metadataArtist then
 							local number = catalogs[i].number
 							largeImageKey = ("coverart_%s"):format(number):gsub("[ /~]", "_"):lower()
 							largeImageText = album[j]
