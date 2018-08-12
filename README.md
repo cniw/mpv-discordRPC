@@ -22,6 +22,8 @@ For more description read below.
 | Cover art | ![Cover art](images/coverart.png)
 | YouTube playing | ![YouTube playing](images/playing_youtube.png)
 | Crunchyroll paused  | ![Crunchyroll paused](images/paused_crunchyroll.png)
+| SoundCloud playing | ![SoundCloud playing](images/playing_soundcloud.png)
+| LISTEN.moe paused  | ![LISTEN.moe paused](images/paused_listen_moe.png)
 
 ---
 ## Used softwares
