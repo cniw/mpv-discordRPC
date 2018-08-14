@@ -1,4 +1,4 @@
-<center><img align="right" src="images/buffering_streaming.png"></center>
+<center><img align="right" src="images/buffering_mpv_stream.png"></center>
 <h1 align="center"><a href="https://github.com/cniw/mpv-discordRPC">mpv-discordRPC</a></h1>
 <p align="center"><b>Discord Rich Presence intergation for mpv Media Player</b></p>
 <hr><p align="center">

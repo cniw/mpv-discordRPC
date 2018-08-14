@@ -141,7 +141,7 @@ local function main()
 	if url ~= nil then
 		-- checking protocol: http, https
 		if string.match(url, "^https?://.*") ~= nil then
-			largeImageKey = "mpv_streaming"
+			largeImageKey = "mpv_stream"
 			largeImageText = url
 		end
 		-- checking site: YouTube, Crunchyroll, SoundCloud, LISTEN.moe
