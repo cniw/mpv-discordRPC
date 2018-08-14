@@ -34,6 +34,14 @@ local o = {
 }
 options.read_options(o)
 
+-- set `script_info`
+local script_info = {
+	name = debug.getinfo(1, "S").short_src:match(".*/(.*).lua"):gsub("[- ]", "_"),
+	description = "Discord Rich Presence integration for mpv Media Player",
+	upstream = "https://github.com/cniw/mpv-discordRPC",
+	version = "1.3",
+}
+
 -- set `startTime`
 local startTime = os.time(os.date("*t"))
 
@@ -223,12 +231,17 @@ local function main()
 	end
 end
 
+-- print script info
+print(string.format(script_info.description))
+print(string.format("Upstream: %s", script_info.upstream))
+print(string.format("Version: %s", script_info.version))
+
 -- toggling active or inactive
 mp.add_key_binding(o.key_toggle, "active-toggle", function()
 		o.active = o.active == "yes" and "no" or "yes"
 		local status = o.active == "yes" and "active" or "inactive"
-		mp.osd_message("mpv_discordRPC: " .. status)
-		print(status)
+		mp.osd_message(("[%s] Status: %s"):format(script_info.name, status))
+		print(string.format("Status: %s", status))
 	end,
 	{repeatable=false})
 
