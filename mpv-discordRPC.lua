@@ -12,7 +12,7 @@ local o = {
 	-- Available option, to set `rpc_wrapper`:
 	-- * lua-discordRPC
 	-- * pypresence
-	periodic_timer = 1,
+	periodic_timer = 15,
 	-- Recommendation value, to set `periodic_timer`:
 	-- value >= 1 second, if use lua-discordRPC,
 	-- value >= 3 second, if use pypresence (for the python3::asyncio process),
