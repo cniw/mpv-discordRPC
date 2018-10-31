@@ -156,6 +156,9 @@ local function main()
 		if string.match(url, "www.youtube.com/watch%?v=([a-zA-Z0-9-_]+)&?.*$") ~= nil then
 			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
 			largeImageText = "YouTube"
+		elseif string.match(url, "youtu.be/([a-zA-Z0-9-_]+)&?.*$") ~= nil then
+			largeImageKey = "youtube"	-- alternative "youtube_big" or "youtube-2"
+			largeImageText = "YouTube"
 		elseif string.match(url, "www.crunchyroll.com/.+/.*-([0-9]+)??.*$") ~= nil then
 			largeImageKey = "crunchyroll"	-- alternative "crunchyroll_big"
 			largeImageText = "Crunchyroll"
