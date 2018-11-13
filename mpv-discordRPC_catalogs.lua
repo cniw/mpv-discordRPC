@@ -15,7 +15,7 @@ return {
 	{ number = "RR 7655-5", album = { "Resolution" }, artist = { "Lamb of God" } },
 	{ number = "NB 3559-0", album = { "VII: Sturm und Drang", "Sturm und Drang" }, artist = { "Lamb of God" } },
 	-- ONE OK ROCK
-	{ number = "AZCL-10011", album = { "ゼイタクビョウ", "Zeitakubyō", "Zeitakubyo" }, artist = { "ONE OK ROCK" } },
+	{ number = "AZCL-10011", album = { "ゼイタクビョウ", "Zeitakubyō", "Zeitakubyo", "Zeitakubyou" }, artist = { "ONE OK ROCK" } },
 	{ number = "AZCL-10017", album = { "BEAM OF LIGHT", "Beam of Light" }, artist = { "ONE OK ROCK" } },
 	{ number = "AZCB-1001", album = { "感情エフェクト", "Kanjō Effect", "Kanjo Effect" }, artist = { "ONE OK ROCK" } },
 	{ number = "AZCS-1005", album = { "Nicheシンドローム", "Niche Syndrome", "NICHE シンドローム" }, artist = { "ONE OK ROCK" } },
