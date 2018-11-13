@@ -4,7 +4,7 @@ echo mpv-discordRPC Windows installer script
 echo ===========================================================================
 
 :set_mpv_dir
-echo Enter mpv directory E.g.: D:\Applications\mpv-x86_64-20171225
+echo Enter mpv directory E.g.: D:\Applications\mpv-x86_64-20181002
 set /p mpv_dir="mpv folder: "
 echo:
 
@@ -39,12 +39,12 @@ echo:
 
 if %additional_dir_select%==1 (
 	set scripts_dir="%mpv_dir%\scripts"
-	set lua-settings_dir="%mpv_dir%\lua-settings"
+	set script_opts_dir="%mpv_dir%\script-opts"
 	goto install_additional
 )
 if %additional_dir_select%==2 (
 	set scripts_dir="%appdata%\mpv\scripts"
-	set lua-settings_dir="%appdata%\mpv\lua-settings"
+	set script_opts_dir="%appdata%\mpv\script-opts"
 	goto install_additional
 ) else goto set_additional_dir
 
@@ -52,8 +52,8 @@ if %additional_dir_select%==2 (
 if not exist "%scripts_dir%" mkdir "%scripts_dir%"
 copy .\*.lua "%scripts_dir%" > nul
 copy .\*.py "%scripts_dir%" > nul
-if not exist "%lua-settings_dir%" mkdir "%lua-settings_dir%"
-copy .\*.conf "%lua-settings_dir%" > nul
+if not exist "%script_opts_dir%" mkdir "%script_opts_dir%"
+copy .\*.conf "%script_opts_dir%" > nul
 
 echo:
 echo [discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.

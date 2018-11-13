@@ -3,14 +3,14 @@
 NAME="mpv-discordRPC"
 DIRNAME=$(dirname "$0")
 SCRIPTS_DIR=${HOME}/.config/mpv/scripts
-LUA_SETTINGS_DIR=${HOME}/.config/mpv/lua-settings
+SCRIPT_OPTS_DIR=${HOME}/.config/mpv/script-opts
 LIBRARY_DIR=/usr/local/lib
 
 if  [ ! -d "${SCRIPTS_DIR}" ] ; then
     mkdir -p "${SCRIPTS_DIR}"
 fi
-if  [ ! -d "${LUA_SETTINGS_DIR}" ] ; then
-    mkdir -p "${LUA_SETTINGS_DIR}"
+if  [ ! -d "${SCRIPT_OPTS_DIR}" ] ; then
+    mkdir -p "${SCRIPT_OPTS_DIR}"
 fi
 if  [ ! -d "${LIBRARY_DIR}" ] ; then
     sudo mkdir -p "${LIBRARY_DIR}"
@@ -74,7 +74,7 @@ echo "[${NAME}] ├── downloading 'mpv-discordRPC.lua'"
     wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC.lua"
 fi
 echo "[${NAME}] ├── installing 'mpv_discordRPC.conf'"
-cp ./mpv_discordRPC.conf "${LUA_SETTINGS_DIR}"
+cp ./mpv_discordRPC.conf "${SCRIPT_OPTS_DIR}"
 echo "[${NAME}] ├── installing 'mpv-discordRPC_catalogs.lua'"
 cp ./mpv-discordRPC_catalogs.lua "${SCRIPTS_DIR}"
 echo "[${NAME}] └── installing 'mpv-discordRPC.lua'"
