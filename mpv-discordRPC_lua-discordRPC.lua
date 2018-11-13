@@ -20,19 +20,19 @@ typedef struct DiscordRichPresence {
     int8_t instance;
 } DiscordRichPresence;
 
-typedef struct DiscordJoinRequest {
+typedef struct DiscordUser {
     const char* userId;
     const char* username;
     const char* discriminator;
     const char* avatar;
-} DiscordJoinRequest;
+} DiscordUser;
 
-typedef void (*readyPtr)();
+typedef void (*readyPtr)(const DiscordUser* request);
 typedef void (*disconnectedPtr)(int errorCode, const char* message);
 typedef void (*erroredPtr)(int errorCode, const char* message);
 typedef void (*joinGamePtr)(const char* joinSecret);
 typedef void (*spectateGamePtr)(const char* spectateSecret);
-typedef void (*joinRequestPtr)(const DiscordJoinRequest* request);
+typedef void (*joinRequestPtr)(const DiscordUser* request);
 
 typedef struct DiscordEventHandlers {
     readyPtr ready;
@@ -54,7 +54,11 @@ void Discord_RunCallbacks(void);
 
 void Discord_UpdatePresence(const DiscordRichPresence* presence);
 
+void Discord_ClearPresence(void);
+
 void Discord_Respond(const char* userid, int reply);
+
+void Discord_UpdateHandlers(DiscordEventHandlers* handlers);
 ]]
 
 local discordRPC = {} -- module table
@@ -62,12 +66,17 @@ local discordRPC = {} -- module table
 -- proxy to detect garbage collection of the module
 discordRPC.gcDummy = newproxy(true)
 
+local function unpackDiscordUser(request)
+    return ffi.string(request.userId), ffi.string(request.username),
+        ffi.string(request.discriminator), ffi.string(request.avatar)
+end
+
 -- callback proxies
 -- note: callbacks are not JIT compiled (= SLOW), try to avoid doing performance critical tasks in them
 -- luajit.org/ext_ffi_semantics.html
-local ready_proxy = ffi.cast("readyPtr", function()
+local ready_proxy = ffi.cast("readyPtr", function(request)
     if discordRPC.ready then
-        discordRPC.ready()
+        discordRPC.ready(unpackDiscordUser(request))
     end
 end)
 
@@ -97,13 +106,7 @@ end)
 
 local joinRequest_proxy = ffi.cast("joinRequestPtr", function(request)
     if discordRPC.joinRequest then
-        if request == nil then -- a null pointer got passed
-            discordRPC.joinRequest()
-        else
-            discordRPC.joinRequest(ffi.string(request.userId),
-                ffi.string(request.username), ffi.string(request.discriminator),
-                ffi.string(request.avatar))
-        end
+        discordRPC.joinRequest(unpackDiscordUser(request))
     end
 end)
 
@@ -160,26 +163,25 @@ function discordRPC.shutdown()
 end
 
 function discordRPC.runCallbacks()
-    -- http://luajit.org/ext_ffi_semantics.html#callback :
-    -- One thing that's not allowed, is to let an FFI call into a C function (runCallbacks)
-    -- get JIT-compiled, which in turn calls a callback, calling into Lua again (i.e. discordRPC.ready).
-    -- Usually this attempt is caught by the interpreter first and the C function
-    -- is blacklisted for compilation.
-    -- solution:
-    -- Then you'll need to manually turn off JIT-compilation with jit.off() for
-    -- the surrounding Lua function that invokes such a message polling function.
-    jit.off()
     discordRPClib.Discord_RunCallbacks()
-    jit.on()
 end
+-- http://luajit.org/ext_ffi_semantics.html#callback :
+-- It is not allowed, to let an FFI call into a C function (runCallbacks)
+-- get JIT-compiled, which in turn calls a callback, calling into Lua again (e.g. discordRPC.ready).
+-- Usually this attempt is caught by the interpreter first and the C function
+-- is blacklisted for compilation.
+-- solution:
+-- "Then you'll need to manually turn off JIT-compilation with jit.off() for
+-- the surrounding Lua function that invokes such a message polling function."
+jit.off(discordRPC.runCallbacks)
 
 function discordRPC.updatePresence(presence)
     local func = "discordRPC.updatePresence"
     checkArg(presence, "table", "presence", func)
 
     -- -1 for string length because of 0-termination
-    checkStrArg(presence.state, 512, "presence.state", func, true)
-    checkStrArg(presence.details, 512, "presence.details", func, true)
+    checkStrArg(presence.state, 127, "presence.state", func, true)
+    checkStrArg(presence.details, 127, "presence.details", func, true)
 
     checkIntArg(presence.startTimestamp, 64, "presence.startTimestamp", func, true)
     checkIntArg(presence.endTimestamp, 64, "presence.endTimestamp", func, true)
@@ -219,6 +221,10 @@ function discordRPC.updatePresence(presence)
     discordRPClib.Discord_UpdatePresence(cpresence)
 end
 
+function discordRPC.clearPresence()
+    discordRPClib.Discord_ClearPresence()
+end
+
 local replyMap = {
     no = 0,
     yes = 1,
@@ -237,6 +243,10 @@ getmetatable(discordRPC.gcDummy).__gc = function()
     discordRPC.shutdown()
     ready_proxy:free()
     disconnected_proxy:free()
+    errored_proxy:free()
+    joinGame_proxy:free()
+    spectateGame_proxy:free()
+    joinRequest_proxy:free()
 end
 
 return discordRPC
