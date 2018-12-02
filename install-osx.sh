@@ -21,7 +21,7 @@ echo "[${NAME}] installing dependency"
 echo "[${NAME}] ├── discord-rpc"
 if [ ! -f ./discord-rpc-osx.zip ]; then
 echo "[${NAME}] │   ├── downloading 'discord-rpc-osx.zip'"
-    wget -q -c "https://github.com/discordapp/discord-rpc/releases/download/v3.3.0/discord-rpc-osx.zip"
+    wget -q -c "https://github.com/discordapp/discord-rpc/releases/download/v3.4.0/discord-rpc-osx.zip"
 fi
 echo "[${NAME}] │   ├── extracting 'discord-rpc-osx.zip'"
 unzip -q discord-rpc-osx.zip

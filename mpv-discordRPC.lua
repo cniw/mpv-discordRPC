@@ -39,7 +39,7 @@ local script_info = {
 	name = debug.getinfo(1, "S").short_src:match(".*/(.*).lua"):gsub("[- ]", "_"),
 	description = "Discord Rich Presence integration for mpv Media Player",
 	upstream = "https://github.com/cniw/mpv-discordRPC",
-	version = "1.4",
+	version = "1.4.1",
 }
 
 -- set `startTime`
