@@ -49,9 +49,9 @@ if %additional_dir_select%==2 (
 ) else goto set_additional_dir
 
 :install_additional
-if not exist "%scripts_dir%" mkdir "%scripts_dir%"
+if not exist "%scripts_dir%\mpv-discordRPC" mkdir "%scripts_dir%\mpv-discordRPC"
 copy .\*.lua "%scripts_dir%" > nul
-copy .\*.py "%scripts_dir%" > nul
+copy .\mpv-discordRPC\*.* "%scripts_dir%\mpv-discordRPC" > nul
 if not exist "%script_opts_dir%" mkdir "%script_opts_dir%"
 copy .\*.conf "%script_opts_dir%" > nul
 

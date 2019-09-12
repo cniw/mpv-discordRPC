@@ -122,7 +122,7 @@ local function main()
 	local largeImageText = "mpv Media Player"
 	-- set `cover_art`
 	if o.cover_art == "yes" then
-		local catalogs = require("mpv-discordRPC_catalogs")
+		local catalogs = require("mpv-discordRPC.catalogs")
 		for i in pairs(catalogs) do
 			local album = catalogs[i].album
 			for j in pairs(album) do
@@ -199,7 +199,7 @@ local function main()
 	if tostring(o.rpc_wrapper) == "lua-discordRPC" then
 		-- run Rich Presence with lua-discordRPC
 		local appId = "448016723057049601"
-		local RPC = require("mpv-discordRPC_" .. o.rpc_wrapper)
+		local RPC = require("mpv-discordRPC." .. o.rpc_wrapper)
 		RPC.initialize(appId, true)
 		if o.active == "yes" then
 			RPC.updatePresence(presence)
@@ -215,7 +215,7 @@ local function main()
 		if lib == "dll" then
 			pythonPath = pythonPath:gsub("/","\\\\")
 		end
-		pythonPath = pythonPath .. "mpv-discordRPC_" .. o.rpc_wrapper .. ".py"
+		pythonPath = pythonPath .. "mpv-discordRPC/" .. o.rpc_wrapper .. ".py"
 		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
 		local command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
