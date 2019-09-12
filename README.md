@@ -56,7 +56,7 @@ rpc_wrapper option, choose one. Example:
 	```
 * Configuration (B) rpc_wrapper and periodic_timer
 	```
-	rpc_wrapper=pypresence
+	rpc_wrapper=python-pypresence
 	periodic_timer=3
 	```
 Setting to show playlist info and loop info. Example:
@@ -101,7 +101,7 @@ Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by
    build successfully but still can't load LuaJIT properly when run mpv (read 
    [mpv issue #5205][mpv issue #5205]). You can check with `otool` command.
 
-### To use _`rpc_wrapper=pypresence`_, Important to install pypresence
+### To use _`rpc_wrapper=python-pypresence`_, Important to install pypresence
 **Support Mac, Windows, and Linux** because can use with [Lua][lua] (lua@5.1, 
 lua@5.2) or [LuaJIT][luajit] (luajit).
 1. Install [Python 3][python] (python3.4 or python3.6) because this version has 

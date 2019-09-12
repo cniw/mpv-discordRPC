@@ -11,7 +11,7 @@ local o = {
 	rpc_wrapper = "lua-discordRPC",
 	-- Available option, to set `rpc_wrapper`:
 	-- * lua-discordRPC
-	-- * pypresence
+	-- * python-pypresence
 	periodic_timer = 15,
 	-- Recommendation value, to set `periodic_timer`:
 	-- value >= 1 second, if use lua-discordRPC,
@@ -206,7 +206,7 @@ local function main()
 		else
 			RPC.shutdown()
 		end
-	elseif tostring(o.rpc_wrapper) == "pypresence" then
+	elseif tostring(o.rpc_wrapper) == "python-pypresence" then
 		-- set python path
 		local pythonPath
 		local lib
