@@ -102,13 +102,12 @@ Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by
    [mpv issue #5205][mpv issue #5205]). You can check with `otool` command.
 
 ### To use _`rpc_wrapper=python-pypresence`_, Important to install pypresence
-**Support Mac, Windows, and Linux** because can use with [Lua][lua] (lua@5.1, 
-lua@5.2) or [LuaJIT][luajit] (luajit).
-1. Install [Python 3][python] (python3.4 or python3.6) because this version has 
-[asyncio][asyncio] library which needed by pypresence.
-2. Install [pypresence][pypresence] `pip3 install pypresence` or `pip3 install 
-https://github.com/qwertyquerty/pypresence/archive/master.zip` you can use `pip` 
-instead of `pip3` if python2.7 not installed.
+**Support Mac, Windows, and Linux** because can use with [Lua][lua] or [LuaJIT][luajit].
+1. Install [Python][python] >=3.5 because this version has [asyncio][asyncio] 
+library which needed by pypresence.
+2. Install [pypresence][pypresence] `pip install pypresence` or `pip install 
+https://github.com/qwertyquerty/pypresence/archive/master.zip` use `pip3` 
+instead of `pip` if Python 2 still installed on your old machine.
 
 You may want to check again, run command `mpv -v -V` and find `luajit` or `lua` 
 word on the line which beginning with `[cplayer] List of enabled features:` for 
