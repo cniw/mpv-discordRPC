@@ -248,4 +248,3 @@ mp.add_key_binding(o.key_toggle, "active-toggle", function()
 
 -- run `main` function
 mp.add_periodic_timer(o.periodic_timer, main)
-

@@ -84,4 +84,3 @@ echo "[${NAME}] updating library path"
 sudo update_dyld_shared_cache
 
 echo -e "\n[discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.\n"
-

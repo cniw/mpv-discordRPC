@@ -85,4 +85,3 @@ sudo sh -c 'echo '"${LIBRARY_DIR}"' > /etc/ld.so.conf.d/'"${NAME}"'.conf'
 sudo ldconfig
 
 echo -e "\n[discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.\n"
-

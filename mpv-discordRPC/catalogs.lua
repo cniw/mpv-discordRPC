@@ -56,4 +56,3 @@ return {
 	{ number = "1686-176042", album = { "Dream Theater" }, artist = { "Dream Theater" } },
 	{ number = "1686-174932", album = { "The Astonishing" }, artist = { "Dream Theater" } },
 }
-
