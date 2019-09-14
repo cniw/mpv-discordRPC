@@ -27,8 +27,8 @@ For more description read below.
 
 ---
 ## Used softwares
-1. provided by user: [mpv][mpv], [Discord][discord]
-2. Included: [Discord RPC][discord-rpc], [status-line][status-line], 
+1. Provided by user: [mpv][mpv], [Discord][discord]
+2. Included: [Discord RPC][discord-rpc], [status-line][status-line],
 [lua-discordRPC][lua-discordRPC]
 3. Optional: [Python][python], [pypresence][pypresence]
 
@@ -47,82 +47,82 @@ For more description read below.
 
 ---
 ## Settings
-Just edit `mpv_discordRPC.conf` file in `lua-settings` folder. Now Available 2 
+Just edit `mpv_discordRPC.conf` file in `script-opts` folder. Now Available 2
 rpc_wrapper option, choose one. Example:
 * Configuration (A) rpc_wrapper and periodic_timer
-	```
-	rpc_wrapper=lua-discordRPC
-	periodic_timer=1
-	```
+    ```conf
+    rpc_wrapper=lua-discordRPC
+    periodic_timer=1
+    ```
 * Configuration (B) rpc_wrapper and periodic_timer
-	```
-	rpc_wrapper=python-pypresence
-	periodic_timer=3
-	```
+    ```conf
+    rpc_wrapper=python-pypresence
+    periodic_timer=3
+    ```
 Setting to show playlist info and loop info. Example:
 * Configuration playlist_info and loop_info
-	```
-	playlist_info=yes
-	loop_info=yes
-	```
+    ```conf
+    playlist_info=yes
+    loop_info=yes
+    ```
 Setting to show cover art. Example:
 * Configuration cover_art
-	```
-	cover_art=yes
-	```
+    ```conf
+    cover_art=yes
+    ```
 Setting to active/inactive toggle the Discord RPC and the start states. Example:
 * Configuration active and key_toggle
-	```
-	active=yes
-	key_toggle=D
-	```
+    ```conf
+    active=yes
+    key_toggle=D
+    ```
 
 ### To use _`rpc_wrapper=lua-discordRPC`_, Important LuaJIT on mpv
-Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by 
+Check [LuaJIT][luajit], because it has [FFI Library][ext_ffi] and it needed by
 [lua-discordRPC][lua-discordRPC].
 1. For Linux
     - Make sure your mpv binary linked to luajit~~ not lua~~ library.
-		```bash
-		ldd $(which mpv) | grep luajit
-		libluajit-5.1.so.2 => /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2 (0x00007f32e9a83000)
-		```
+        ```bash
+        ldd $(which mpv) | grep luajit
+        libluajit-5.1.so.2 => /usr/lib/x86_64-linux-gnu/libluajit-5.1.so.2 (0x00007f32e9a83000)
+        ```
     - If it's dynamic build while it's static build you can check with
-		```bash
-		mpv -v -V | sed -rn 's/.*(luajit).*/\1/p'
-		luajit
-		```
+        ```bash
+        mpv -v -V | sed -rn 's/.*(luajit).*/\1/p'
+        luajit
+        ```
 2. For Windows ***(Don't worry)***
-   - You can skip this because available mpv Windows build by [lachs0r][lachs0r] 
-   and [shinchiro][shinchiro] already use LuaJIT and it static build which 
+   - You can skip this because available mpv Windows build by [lachs0r][lachs0r]
+   and [shinchiro][shinchiro] already use LuaJIT and it static build which
    configured with `--enable-static-build`.
 3. For Mac ***(So sad)***
-   - Until now, LuaJIT still have problem on Mac OS X. Also build mpv with 
-   LuaJIT on Mac OS X (read [mpv issue #1110][mpv issue #1110]), it maybe can 
-   build successfully but still can't load LuaJIT properly when run mpv (read 
+   - Until now, LuaJIT still have problem on Mac OS X. Also build mpv with
+   LuaJIT on Mac OS X (read [mpv issue #1110][mpv issue #1110]), it maybe can
+   build successfully but still can't load LuaJIT properly when run mpv (read
    [mpv issue #5205][mpv issue #5205]). You can check with `otool` command.
 
 ### To use _`rpc_wrapper=python-pypresence`_, Important to install pypresence
 **Support Mac, Windows, and Linux** because can use with [Lua][lua] or [LuaJIT][luajit].
-1. Install [Python][python] >=3.5 because this version has [asyncio][asyncio] 
+1. Install [Python][python] >=3.5 because this version has [asyncio][asyncio]
 library which needed by pypresence.
-2. Install [pypresence][pypresence] `pip install pypresence` or `pip install 
-https://github.com/qwertyquerty/pypresence/archive/master.zip` use `pip3` 
+2. Install [pypresence][pypresence] `pip install pypresence` or `pip install
+https://github.com/qwertyquerty/pypresence/archive/master.zip` use `pip3`
 instead of `pip` if Python 2 still installed on your old machine.
 
-You may want to check again, run command `mpv -v -V` and find `luajit` or `lua` 
-word on the line which beginning with `[cplayer] List of enabled features:` for 
+You may want to check again, run command `mpv -v -V` and find `luajit` or `lua`
+word on the line which beginning with `[cplayer] List of enabled features:` for
 Mac, Windows or Linux.
 
 ---
 ## Testing
 1. Open your Discord then,
 2. Open your mpv then,
-3. Back to Discord and then check your profile. 
+3. Back to Discord and then check your profile.
 
 
 Good Luck and have a nice day.
 
-Feedback: If you have question, problem or request, please make new issue or 
+Feedback: If you have question, problem or request, please make new issue or
 contact me wachidadinugroho#7674 via Discord.
 
 
