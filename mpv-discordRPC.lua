@@ -64,6 +64,7 @@ local function main()
 		details = "No file"
 	end
 	-- set `state`, `smallImageKey`, and `smallImageText`
+	local state, smallImageKey, smallImageText
 	local idle = mp.get_property_bool("idle-active")
 	local coreIdle = mp.get_property_bool("core-idle")
 	local pausedFC = mp.get_property_bool("paused-for-cache")
