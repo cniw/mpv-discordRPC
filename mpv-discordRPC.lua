@@ -212,11 +212,11 @@ local function main()
 		local pythonPath
 		local lib
 		pythonPath = debug.getinfo(1, "S").short_src:match("(.*/)")
+		pythonPath = pythonPath .. "mpv-discordRPC/" .. o.rpc_wrapper .. ".py"
 		lib = package.cpath:match("%p[\\|/]?%p(%a+)")
 		if lib == "dll" then
 			pythonPath = pythonPath:gsub("/","\\\\")
 		end
-		pythonPath = pythonPath .. "mpv-discordRPC/" .. o.rpc_wrapper .. ".py"
 		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
 		local command = ('python "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
