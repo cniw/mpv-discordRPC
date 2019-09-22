@@ -203,6 +203,7 @@ local function main()
 		local RPC = require("mpv-discordRPC." .. o.rpc_wrapper)
 		RPC.initialize(appId, true)
 		if o.active == "yes" then
+			presence.details = presence.details:len() > 127 and presence.details:sub(1, 127)
 			RPC.updatePresence(presence)
 		else
 			RPC.shutdown()
