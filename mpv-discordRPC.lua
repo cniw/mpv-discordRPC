@@ -211,7 +211,7 @@ local function main()
 		-- set python path
 		local pythonPath
 		local lib
-		pythonPath = debug.getinfo(1, "S").short_src:match("(.*/)")
+		pythonPath = debug.getinfo(1, "S").source:match("@(.*/)")
 		pythonPath = pythonPath .. "mpv-discordRPC/" .. o.rpc_wrapper .. ".py"
 		lib = package.cpath:match("%p[\\|/]?%p(%a+)")
 		if lib == "dll" then
