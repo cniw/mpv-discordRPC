@@ -125,6 +125,16 @@ local function main()
 	if o.cover_art == "yes" then
 		local catalogs = require("mpv-discordRPC.catalogs")
 		for i in pairs(catalogs) do
+			local title = catalogs[i].title
+			for j in pairs(title) do
+				local lower_title = title[j] ~= nil and title[j]:lower() or ""
+				local lower_details = details ~= nil and details:lower() or ""
+				if lower_details:find(lower_title, 1, true) ~= nil then
+					local number = catalogs[i].number
+					largeImageKey = ("coverart_%s"):format(number):gsub("[ /~]", "_"):lower()
+					largeImageText = title[j]
+				end
+			end
 			local album = catalogs[i].album
 			for j in pairs(album) do
 				local lower_album = album[j] ~= nil and album[j]:lower() or ""
