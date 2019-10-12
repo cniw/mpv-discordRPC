@@ -47,7 +47,7 @@ For more description read below.
 
 ---
 
-## Instalation
+## Installation
 
 1. For Linux, installing just run `install-linux.sh` on terminal.
 2. For Windows, installing just run `install-win.bat` by double-clicking it.
