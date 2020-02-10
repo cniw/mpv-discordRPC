@@ -36,7 +36,7 @@ options.read_options(o)
 
 -- set `script_info`
 local script_info = {
-	name = debug.getinfo(1, "S").short_src:match(".*/(.*).lua"):gsub("[- ]", "_"),
+	name = mp.get_script_name(),
 	description = "Discord Rich Presence integration for mpv Media Player",
 	upstream = "https://github.com/cniw/mpv-discordRPC",
 	version = "1.4.1",
@@ -123,7 +123,7 @@ local function main()
 	local largeImageText = "mpv Media Player"
 	-- set `cover_art`
 	if o.cover_art == "yes" then
-		local catalogs = require("mpv-discordRPC.catalogs")
+		local catalogs = require("catalogs")
 		for i in pairs(catalogs) do
 			local title = catalogs[i].title
 			for j in pairs(title) do
@@ -210,7 +210,7 @@ local function main()
 	if tostring(o.rpc_wrapper) == "lua-discordRPC" then
 		-- run Rich Presence with lua-discordRPC
 		local appId = "448016723057049601"
-		local RPC = require("mpv-discordRPC." .. o.rpc_wrapper)
+		local RPC = require(o.rpc_wrapper)
 		RPC.initialize(appId, true)
 		if o.active == "yes" then
 			presence.details = presence.details:len() > 127 and presence.details:sub(1, 127) or presence.details
@@ -222,8 +222,7 @@ local function main()
 		-- set python path
 		local pythonPath
 		local lib
-		pythonPath = debug.getinfo(1, "S").source:match("@(.*/)")
-		pythonPath = pythonPath .. "mpv-discordRPC/" .. o.rpc_wrapper .. ".py"
+		pythonPath = mp.get_script_directory() .. "/" .. o.rpc_wrapper .. ".py"
 		lib = package.cpath:match("%p[\\|/]?%p(%a+)")
 		if lib == "dll" then
 			pythonPath = pythonPath:gsub("/","\\\\")
