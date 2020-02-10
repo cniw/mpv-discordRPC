@@ -69,16 +69,16 @@ if [ ! -f ./mpv-discordRPC/catalogs.lua ]; then
 echo "[${NAME}] ├── downloading 'catalogs.lua'"
     wget -q -c -O "mpv-discordRPC/catalogs.lua" "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC/catalogs.lua"
 fi
-if [ ! -f ./mpv-discordRPC.lua ]; then
-echo "[${NAME}] ├── downloading 'mpv-discordRPC.lua'"
-    wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC.lua"
+if [ ! -f ./mpv-discordRPC/main.lua ]; then
+echo "[${NAME}] ├── downloading 'main.lua'"
+    wget -q -c "https://github.com/cniw/mpv-discordRPC/raw/master/mpv-discordRPC/main.lua"
 fi
 echo "[${NAME}] ├── installing 'mpv_discordRPC.conf'"
 cp ./mpv_discordRPC.conf "${SCRIPT_OPTS_DIR}"
 echo "[${NAME}] ├── installing 'catalogs.lua'"
 cp ./mpv-discordRPC/catalogs.lua "${SCRIPTS_DIR}/mpv-discordRPC"
-echo "[${NAME}] └── installing 'mpv-discordRPC.lua'"
-cp ./mpv-discordRPC.lua "${SCRIPTS_DIR}"
+echo "[${NAME}] └── installing 'main.lua'"
+cp ./mpv-discordRPC/main.lua "${SCRIPTS_DIR}/mpv-discordRPC"
 
 echo "[${NAME}] updating library path"
 sudo update_dyld_shared_cache
