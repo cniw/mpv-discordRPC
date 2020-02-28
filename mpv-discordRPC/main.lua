@@ -23,6 +23,8 @@ local o = {
 	-- Valid value to set `loop_info`: (yes|no)
 	cover_art = "yes",
 	-- Valid value to set `cover_art`: (yes|no)
+	mpv_version = "yes",
+	-- Valid value to set `mpv_version`: (yes|no)
 	active = "yes",
 	-- Set Discord RPC active automatically when mpv started.
 	-- Valid value to `set_active`: (yes|no)
@@ -41,6 +43,9 @@ local script_info = {
 	upstream = "https://github.com/cniw/mpv-discordRPC",
 	version = "1.4.1",
 }
+
+-- set `mpv_version`
+local mpv_version = mp.get_property("mpv-version"):sub(5)
 
 -- set `startTime`
 local startTime = os.time(os.date("*t"))
@@ -121,6 +126,10 @@ local function main()
 	-- set `largeImageKey` and `largeImageText`
 	local largeImageKey = "mpv"
 	local largeImageText = "mpv Media Player"
+	-- set `mpv_version`
+	if o.mpv_version == "yes" then
+		largeImageText = mpv_version
+	end
 	-- set `cover_art`
 	if o.cover_art == "yes" then
 		local catalogs = require("catalogs")
