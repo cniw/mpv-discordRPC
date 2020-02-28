@@ -257,6 +257,16 @@ msg.info(string.format(script_info.description))
 msg.info(string.format("Upstream: %s", script_info.upstream))
 msg.info(string.format("Version: %s", script_info.version))
 
+-- print option values
+msg.verbose(string.format("rpc_wrapper    : %s", o.rpc_wrapper))
+msg.verbose(string.format("periodic_timer : %s", o.periodic_timer))
+msg.verbose(string.format("playlist_info  : %s", o.playlist_info))
+msg.verbose(string.format("loop_info      : %s", o.loop_info))
+msg.verbose(string.format("cover_art      : %s", o.cover_art))
+msg.verbose(string.format("mpv_version    : %s", o.mpv_version))
+msg.verbose(string.format("active         : %s", o.active))
+msg.verbose(string.format("key_toggle     : %s", o.key_toggle))
+
 -- toggling active or inactive
 mp.add_key_binding(o.key_toggle, "active-toggle", function()
 		o.active = o.active == "yes" and "no" or "yes"
