@@ -42,7 +42,7 @@ local script_info = {
 	name = mp.get_script_name(),
 	description = "Discord Rich Presence integration for mpv Media Player",
 	upstream = "https://github.com/cniw/mpv-discordRPC",
-	version = "1.4.1",
+	version = "1.4.1-UNKNOWN",
 }
 
 -- set `mpv_version`
