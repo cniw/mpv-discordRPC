@@ -5,6 +5,7 @@
 
 
 local options = require 'mp.options'
+local msg = require 'mp.msg'
 
 -- set [options]
 local o = {
@@ -252,16 +253,16 @@ local function main()
 end
 
 -- print script info
-print(string.format(script_info.description))
-print(string.format("Upstream: %s", script_info.upstream))
-print(string.format("Version: %s", script_info.version))
+msg.info(string.format(script_info.description))
+msg.info(string.format("Upstream: %s", script_info.upstream))
+msg.info(string.format("Version: %s", script_info.version))
 
 -- toggling active or inactive
 mp.add_key_binding(o.key_toggle, "active-toggle", function()
 		o.active = o.active == "yes" and "no" or "yes"
 		local status = o.active == "yes" and "active" or "inactive"
 		mp.osd_message(("[%s] Status: %s"):format(script_info.name, status))
-		print(string.format("Status: %s", status))
+		msg.info(string.format("Status: %s", status))
 	end,
 	{repeatable=false})
 
