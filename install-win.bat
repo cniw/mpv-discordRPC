@@ -3,6 +3,8 @@ title mpv-discordRPC Installer
 echo mpv-discordRPC Windows installer script
 echo ===========================================================================
 
+set src_dir=%~dp0
+
 :set_mpv_dir
 echo Enter mpv directory E.g.: D:\Applications\mpv-x86_64-20181002
 set /p mpv_dir="mpv folder: "
@@ -23,11 +25,11 @@ if exist "%mpv_dir%" (
 )
 
 :install_library
-unzip -qq ".\discord-rpc-win.zip"
+"%src_dir%unzip.exe" -qq -d "%src_dir:~0,-1%" "%src_dir%discord-rpc-win.zip"
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > nul && set os=32bit || set os=64bit
-if %os%==32bit copy ".\discord-rpc\win32-dynamic\bin\discord-rpc.dll" "%mpv_dir%" > nul
-if %os%==64bit copy ".\discord-rpc\win64-dynamic\bin\discord-rpc.dll" "%mpv_dir%" > nul
-@rd /s /q ".\discord-rpc"
+if %os%==32bit copy "%src_dir%discord-rpc\win32-dynamic\bin\discord-rpc.dll" "%mpv_dir%" > nul
+if %os%==64bit copy "%src_dir%discord-rpc\win64-dynamic\bin\discord-rpc.dll" "%mpv_dir%" > nul
+@rd /s /q "%src_dir%discord-rpc"
 
 :set_additional_dir
 echo [1] install scripts on %mpv_dir%
@@ -50,10 +52,10 @@ if %additional_dir_select%==2 (
 
 :install_additional
 if not exist "%scripts_dir%\mpv-discordRPC" mkdir "%scripts_dir%\mpv-discordRPC"
-copy .\*.lua "%scripts_dir%" > nul
-copy .\mpv-discordRPC\*.* "%scripts_dir%\mpv-discordRPC" > nul
+copy "%src_dir%*.lua" "%scripts_dir%" > nul
+copy "%src_dir%mpv-discordRPC\*.*" "%scripts_dir%\mpv-discordRPC" > nul
 if not exist "%script_opts_dir%" mkdir "%script_opts_dir%"
-copy .\*.conf "%script_opts_dir%" > nul
+copy "%src_dir%*.conf" "%script_opts_dir%" > nul
 
 echo:
 echo [discordapp] wachidadinugroho#7674: All done. Good Luck and have a nice day.
