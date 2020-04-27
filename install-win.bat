@@ -6,7 +6,7 @@ echo ===========================================================================
 set src_dir=%~dp0
 
 :set_mpv_dir
-echo Enter mpv directory E.g.: D:\Applications\mpv-x86_64-20181002
+echo Enter mpv directory E.g.: D:\Applications\mpv-x86_64-20200426-git-640db1e
 set /p mpv_dir="mpv folder: "
 echo:
 
@@ -33,9 +33,9 @@ if %os%==64bit copy "%src_dir%discord-rpc\win64-dynamic\bin\discord-rpc.dll" "%m
 
 :set_additional_dir
 echo [1] install scripts on %mpv_dir%
-echo     install lua-settings on %mpv_dir%
+echo     install script-opts on %mpv_dir%
 echo [2] install scripts on %appdata%\mpv
-echo     install lua-settings on %appdata%\mpv
+echo     install script-opts on %appdata%\mpv
 set /p additional_dir_select="select [1/2]: "
 echo:
 
