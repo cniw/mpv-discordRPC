@@ -16,7 +16,7 @@ print("pypresence: RPC connected")
 while True:
 	time.sleep(4)
 	pid = 9999
-	file = open("/dev/shm/testfile.txt").read().splitlines()
+	file = open("/dev/shm/RPC.txt").read().splitlines()
 	todo = str(file[1]) if len(file) > 1 else "shutdown"
 	state = str(file[2]) if len(file) > 2 else "state = (Idle)"
 	details = str(file[3]) if len(file) > 3 else "details = No file"
@@ -32,7 +32,7 @@ while True:
 		print("pypresence: RPC cleared")
 		RPC.close()
 		print("pypresence: RPC closed")
-		os.system('rm -rf "/dev/shm/testfile.txt"')
+		os.system('rm -rf "/dev/shm/RPC.txt"')
 		sys.exit()
 	elif todo == "idle":
 		RPC.update(state=state, details=details, start=start, large_image=large_image, large_text=large_text, small_image=small_image, small_text=small_text)
