@@ -239,15 +239,20 @@ local function main()
 		end
 		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
-		local command = ('python "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
+		local command = ('%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
 			todo = "shutdown"
-			command = ('python "%s" "%s"'):format(pythonPath, todo)
-			io.popen(command)
+			command = ('%s\n%s'):format(pythonPath, todo)
+			file = io.open('/dev/shm/testfile.txt',"w")
+			io.popen('')
+			file:write(command)
+			file:close()
 			os.exit()
 		end)
 		if o.active == "yes" then
-			io.popen(command)
+			file = io.open('/dev/shm/testfile.txt',"w")
+			file:write(command)
+			file:close()
 		end
 	end
 end
@@ -277,4 +282,5 @@ mp.add_key_binding(o.key_toggle, "active-toggle", function()
 	{repeatable=false})
 
 -- run `main` function
+io.popen('python3 "/media/isaac/Games/Home/isaac/.config/mpv/scripts/mpv-discordRPC/python-pypresence.py" &')
 mp.add_periodic_timer(o.periodic_timer, main)
