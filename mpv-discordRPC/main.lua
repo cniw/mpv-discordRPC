@@ -229,28 +229,20 @@ local function main()
 			RPC.shutdown()
 		end
 	elseif tostring(o.rpc_wrapper) == "python-pypresence" then
-		-- set python path
-		local pythonPath
-		local lib
-		pythonPath = mp.get_script_directory() .. "/" .. o.rpc_wrapper .. ".py"
-		lib = package.cpath:match("%p[\\|/]?%p(%a+)")
-		if lib == "dll" then
-			pythonPath = pythonPath:gsub("/","\\\\")
-		end
 		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
 		local command = ('%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
 			todo = "shutdown"
 			command = ('%s\n%s'):format(pythonPath, todo)
-			file = io.open('/dev/shm/testfile.txt',"w")
+			file = io.open('/dev/shm/RPC.txt',"w")
 			io.popen('')
 			file:write(command)
 			file:close()
 			os.exit()
 		end)
 		if o.active == "yes" then
-			file = io.open('/dev/shm/testfile.txt',"w")
+			file = io.open('/dev/shm/RPC.txt',"w")
 			file:write(command)
 			file:close()
 		end
@@ -281,6 +273,14 @@ mp.add_key_binding(o.key_toggle, "active-toggle", function()
 	end,
 	{repeatable=false})
 
+-- set python path
+local lib
+local pythonPath
+pythonPath = mp.get_script_directory() .. "/" .. o.rpc_wrapper .. ".py"
+lib = package.cpath:match("%p[\\|/]?%p(%a+)")
+if lib == "dll" then
+	pythonPath = pythonPath:gsub("/","\\\\")
+end
 -- run `main` function
-io.popen('python3 "/media/isaac/Games/Home/isaac/.config/mpv/scripts/mpv-discordRPC/python-pypresence.py" &')
+io.popen('python3 "%s" &'):format(pythonPath)
 mp.add_periodic_timer(o.periodic_timer, main)
