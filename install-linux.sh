@@ -2,8 +2,8 @@
 
 NAME="mpv-discordRPC"
 DIRNAME=$(dirname "$0")
-SCRIPTS_DIR=${HOME}/.config/mpv/scripts
-SCRIPT_OPTS_DIR=${HOME}/.config/mpv/script-opts
+SCRIPTS_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"/mpv/scripts
+SCRIPT_OPTS_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"/mpv/script-opts
 LIBRARY_DIR=/usr/local/lib
 
 if  [ ! -d "${SCRIPTS_DIR}/mpv-discordRPC" ] ; then
