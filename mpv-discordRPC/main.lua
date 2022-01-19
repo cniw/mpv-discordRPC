@@ -244,10 +244,10 @@ local function main()
 		end
 		-- run Rich Presence with pypresence
 		local todo = idle and "idle" or "not-idle"
-		local command = ('python "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
+		local command = ('python3 "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"'):format(pythonPath, todo, presence.state, presence.details, math.floor(startTime), math.floor(timeUp), presence.largeImageKey, presence.largeImageText, presence.smallImageKey, presence.smallImageText, o.periodic_timer)
 		mp.register_event('shutdown', function()
 			todo = "shutdown"
-			command = ('python "%s" "%s"'):format(pythonPath, todo)
+			command = ('python3 "%s" "%s"'):format(pythonPath, todo)
 			io.popen(command)
 			os.exit()
 		end)
