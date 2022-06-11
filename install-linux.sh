@@ -43,7 +43,7 @@ if [[ $(pip3 list | grep pypresence) ]]; then
 echo "[${NAME}] │   │   └── 'pypresence' has been installed"
 else
 echo "[${NAME}] │   │   └── installing 'pypresence'"
-    pip3 install pypresence
+    pip3 install --user pypresence
 fi
 if [ ! -f ./mpv-discordRPC/python-pypresence.py ]; then
 echo "[${NAME}] │   ├── downloading 'python-pypresence.py'"
